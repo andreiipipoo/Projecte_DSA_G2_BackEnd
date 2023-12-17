@@ -2,130 +2,89 @@ package edu.upc.dsa.CRUD.util;
 
 import java.util.HashMap;
 import java.util.Objects;
-import org.apache.log4j.Logger;
-import java.util.*;
-import java.lang.reflect.InvocationTargetException;
 
 public class QueryHelper {
 
-    public QueryHelper() {
-        //Constructor not needed for utility classes
-    }
-
-    // Create an INSERT SQL query for an object/entity
-    public static String createQueryINSERT(Object object){
+    public static String createQueryINSERT(Object entity){
         StringBuffer sb = new StringBuffer("INSERT INTO ");
-        sb.append(object.getClass().getSimpleName()).append(" (");
+        sb.append(entity.getClass().getSimpleName()).append(" ");
+        sb.append("(");
 
-        // Get the names of all the fields of the object
-        String[] fields = ObjectHelper.getFields(object);
+        String [] fields = ObjectHelper.getFields(entity);
 
-        // Append the names of the fields to the query
-        for (String field : fields) {
+        for (String field: fields) {
             sb.append(field).append(", ");
         }
-        sb.setLength(sb.length() - 2); // Remove the last comma and space
-        sb.append(") VALUES (");
 
-        // Append placeholders for values to the query
-        for(String key : fields) {
-            sb.append("?, ");
+        sb=sb.replace(sb.length()-2,sb.length(),"");
+        sb.append(") VALUES (?");
+
+        for (String field: fields) {
+            sb.append(", ?");
         }
-        sb.setLength(sb.length() - 2); // Remove the last comma and space
+        sb=sb.replace(sb.length()-3,sb.length(),"");
         sb.append(")");
 
         return sb.toString();
-    }
 
-    // Create a SELECT SQL query for an object/entity
-    public static String createQuerySELECT(Object object){
-        //Find the field representing the ID of the object
-        String field = (String) Arrays.stream(ObjectHelper.getFields(object)).filter(x -> x.matches("(?i).*id.*")).findFirst().orElse(null);
+        /*
+         StringBuilder sb = new StringBuilder("INSERT INTO ");
+         sb.append(entity.getClass().getSimpleName()).append(" (");
 
-        StringBuffer sb = new StringBuffer();
-        sb.append("SELECT * FROM ").append(object.getClass().getSimpleName());
-        sb.append(" WHERE ").append(field).append(" = ?");
-        return sb.toString();
-    }
+         String[] fields = ObjectHelper.getFields(entity);
 
-    // Create a SELECT SQL query to retrieve an entity by a specific attribute
-    public static String createQuerySELECT2(Object object, String attribute){
-        String field = (String) Arrays.stream(ObjectHelper.getFields(object)).filter(x -> x.matches("(?i).*" + attribute + ".*")).findFirst().orElse(null);
-
-        StringBuffer sb = new StringBuffer();
-        sb.append("SELECT * FROM ").append(object.getClass().getSimpleName());
-        sb.append(" WHERE ").append(field);
-        sb.append(" = ?");
-
-        return sb.toString();
-    }
-
-    // Create a SELECT SQL query to retrieve entities based on multiple attributes
-    public static String createQuerySELECT3(Object object, List<String> attributes){
-        List<String> fields = new ArrayList<>();
-
-        // Get the field names for each attribute
-        for (String attribute : attributes) {
-            String field = (String) Arrays.stream(ObjectHelper.getFields(object)).filter(x -> x.matches("(?i).*" + attribute + ".*")).findFirst().orElse(null);
-            fields.add(field);
-        }
-
-        StringBuffer sb = new StringBuffer();
-        sb.append("SELECT * FROM ").append(object.getClass().getSimpleName());
-        sb.append(" WHERE ").append(fields.get(0)).append(" = ?");
-        //Append conditions for additional attributes
-        for (int i = 1; i < fields.size(); i++) {
-            sb.append(" AND ").append(fields.get(i)).append(" = ?");
-        }
-        return sb.toString();
-    }
-
-    // Create an UPDATE SQL query for an object/entity
-    public static String createQueryUPDATE(Object object){
-        StringBuffer sb = new StringBuffer();
-        sb.append("UPDATE ").append(object.getClass().getSimpleName()).append(" SET ");
-
-        // Get the names of all the fields of the object
-        String[] fields = ObjectHelper.getFields(object);
-
-        // Append fields for the SET clause
+        // Join fields using commas with Java 8's StringJoiner
+        StringJoiner joiner = new StringJoiner(", ");
         for (String field : fields) {
-            sb.append(field).append(" = ?, ");
+        joiner.add(field);
         }
-        sb.setLength(sb.length() - 2); // Remove the last comma and space
-        sb.append(" WHERE ").append(ObjectHelper.getIdAttributeName(object.getClass())).append(" = ?");
+        sb.append(joiner.toString());
 
+        sb.append(") VALUES (");
+
+        // Append placeholders for each field
+        for (int i = 0; i < fields.length; i++) {
+        sb.append("?");
+        if (i < fields.length - 1) {
+            sb.append(", ");
+        }
+        }
+        sb.append(")");
         return sb.toString();
+         */
     }
 
-    // Create a SELECT SQL query for all objects/entities of a class
+    public static String createQuerySELECT(Class theClass, String field, String value){
+        StringBuffer sb = new StringBuffer();
+        sb.append("SELECT * FROM ").append(theClass.getSimpleName());
+        sb.append(" WHERE " + field + " = ?");
+        return sb.toString();
+        /*
+        StringBuffer sb = new StringBuffer();
+        sb.append("SELECT * FROM ").append(entity.getClass().getSimpleName());
+        sb.append(" WHERE ID = ?");
+        return sb.toString();
+         */
+    }
+
     public static String createQuerySELECTAll(Class theClass){
         StringBuffer sb = new StringBuffer();
         sb.append("SELECT * FROM ").append(theClass.getSimpleName());
         return sb.toString();
     }
 
-    // Create a DELETE SQL query for an object/entity
-    public static String createQueryDELETE(Object object){
+    public static String createQueryDELETE(Class theClass, String field, String value){
         StringBuffer sb = new StringBuffer();
-        sb.append("DELETE FROM ").append(object.getClass().getSimpleName());
-        sb.append(" WHERE ").append(ObjectHelper.getIdAttributeName(object.getClass())).append(" = ?");
+        sb.append("DELETE FROM ").append(theClass.getSimpleName());
+        sb.append(" WHERE " + field + " = ?");
         return sb.toString();
     }
 
-    public static String createQuerySELECTByUsername(Class theClass, String username){
+    public static String createQueryUPDATE(Object entity, String field, String value){
         StringBuffer sb = new StringBuffer();
-        sb.append("SELECT * FROM ").append(theClass.getSimpleName());
-        //sb.append(" WHERE username = ?").append(username); Este esta bien??
-        sb.append("WHERE username = ?").append(username).append("?");
-        return sb.toString();
-    }
-
-    public static String createQuerySELECTByUsernameAndPassword(Class theClass, String username, String password){
-        StringBuffer sb = new StringBuffer();
-        sb.append("SELECT * FROM ").append(theClass.getSimpleName());
-        sb.append(" WHERE username = ?").append(username);
-        sb.append(" AND password = ?").append(password);
+        sb.append("UPDATE Player ");
+        sb.append(" SET " + field + " = ?");
+        sb.append(" WHERE USERNAME = ?");
         return sb.toString();
     }
 }

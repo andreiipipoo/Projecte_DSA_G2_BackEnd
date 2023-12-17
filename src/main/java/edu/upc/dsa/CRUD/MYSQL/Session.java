@@ -1,19 +1,15 @@
 package edu.upc.dsa.CRUD.MYSQL;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.List;
 
-public interface Session {
-    void save(Object entity) throws SQLException;
+public interface Session<E> {
+    void save(Object entity) throws SQLIntegrityConstraintViolationException;
     void close();
-    void clean();
-    Object get(Class theClass, String id);
-    Object get(Class theClass, String attribute, String value) throws SQLException;
-    void update(Object object) throws SQLException;
-    void delete(Object object);
+    Object get(Class theClass, String field, String value) throws SQLException;
+    void update(String field, String player, String value) throws SQLIntegrityConstraintViolationException;
+    void delete(Class theClass, String field, String value);
     List<Object> findAll(Class theClass);
-    List<Object> findAll(Class theClass, HashMap<String,String> params) throws SQLException;
-    List<Object> query(String query, Class theClass, HashMap params);
+    public int size(Class theClass);
 }

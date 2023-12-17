@@ -1,84 +1,104 @@
 package edu.upc.dsa.models;
 
+import edu.upc.dsa.CRUD.MYSQL.*;
+import edu.upc.dsa.CRUD.util.RandomUtils;
+import java.sql.SQLIntegrityConstraintViolationException;
 import edu.upc.dsa.CRUD.util.RandomUtils;
 
 public class Partida {
-    String partidaId;
-    String username;
-    String itemId;
-    int mapa;
-    int level;
-    int points;
-    Boolean finished;
 
-    public Partida() {
-    }
+        // Basic attributes
+        String idPartida;
+        int difficulty;
+        int nivel;
 
-    public Partida(String username, String itemId, int mapa, int level, int points) {
-        this.partidaId = RandomUtils.getId();
-        this.username = username;
-        this.itemId = itemId;
-        this.mapa = mapa;
-        this.level = level;
-        this.points = points;
-        this.finished = false;
-    }
+        String player;
+        String idMapa;
 
-    public String getPartidaId() {
-        return partidaId;
-    }
+        int points;
+        String date;
 
-    public void setPartidaId(String partidaId) {
-        this.partidaId = partidaId;
-    }
+        // Constructor
 
-    public String getUsername() {
-        return username;
-    }
+        public Partida() {
+            this.idPartida = RandomUtils.getId();
+        }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+        public Partida(int difficulty,String player, String idMapa) {
+            this();
+            this.idPartida = RandomUtils.getId();
+            this.difficulty = difficulty;
+            this.nivel = 1;
+            this.player = player;
+            this.idMapa = idMapa;
+            this.points = 0;
+            //this.date = RandomUtils.getDate();
+        }
 
+        // Getters and setters
 
-    public String getItemId() {
-        return itemId;
-    }
+        public String getIdPartida() {
+            return idPartida;
+        }
 
-    public void setItemId(String itemId) {
-        this.itemId = itemId;
-    }
+        public void setIdPartida(String idPartida) {
+            this.idPartida = idPartida;
+        }
 
-    public int getMapa() {
-        return mapa;
-    }
+        public int getDifficulty() {
+            return difficulty;
+        }
 
-    public void setMapa(int mapa) {
-        this.mapa = mapa;
-    }
+        public void setDifficulty(int difficulty) {
+            this.difficulty = difficulty;
+        }
 
-    public int getLevel() {
-        return level;
-    }
+        public int getNivel() {
+            return nivel;
+        }
 
-    public void setLevel(int level) {
-        this.level = level;
-    }
+        public void setNivel(int nivel) {
+            this.nivel = nivel;
+        }
 
+        public String getPlayer() {
+            return player;
+        }
 
-    public int getPoints() {
-        return points;
-    }
+        public void setPlayer(String player) {
+            this.player = player;
+        }
 
-    public void setPoints(int points) {
-        this.points = points;
-    }
+        public String getIdMapa() {
+            return idMapa;
+        }
 
-    public Boolean getFinished() {
-        return finished;
-    }
+        public void setIdMapa(String idMapa) {
+            this.idMapa = idMapa;
+        }
 
-    public void setFinished(Boolean finished) {
-        this.finished = finished;
-    }
+        public int getPoints() {
+            return points;
+        }
+
+        public void setPoints(int points) {
+            this.points = points;
+        }
+
+        public String getDate() {
+            return date;
+        }
+
+        public void setDate(String date) {
+            this.date = date;
+        }
+
+        // toString
+
+        @Override
+
+        public String toString() {
+            return "Partida [idPartida=" + idPartida + ", difficulty=" + difficulty + ", nivel=" + nivel + ", player=" + player + ", idMapa=" + idMapa + ", points=" + points + ", date=" + date + "]";
+        }
+
 }

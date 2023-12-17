@@ -7,20 +7,23 @@ import java.sql.Statement;
 
 public class FactorySession {
 
-    public FactorySession() {
-    }
-
+    //private IUserDAO em;
     public static Session openSession() {
+
+
         Connection conn = getConnection();
-        return new SessionImpl(conn);
+
+        Session session = new SessionImpl(conn);
+
+        return session;
     }
 
-    private static Connection getConnection(){
+    private static Connection getConnection() {
         Connection conn = null;
         try {
-            // AQUESTA URL ES LA BONA???
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/trappy?" + "user=root&password=mariadbtrappy");
-            System.out.println("Connection established");
+            conn =
+                    DriverManager.getConnection("jdbc:mysql://localhost:3306/trappy?" + "user=root&password=mariadbtrappy");
+
         } catch (SQLException ex) {
             // handle any errors
             System.out.println("SQLException: " + ex.getMessage());
@@ -29,16 +32,4 @@ public class FactorySession {
         }
         return conn;
     }
-
-   /* public static void main(String[] args) {
-        Connection conn = getConnection();
-        Statement stmt = null;
-        try {
-            stmt = conn.createStatement();
-            stmt.execute("INSERT INTO items (name, type, price, level) VALUES ('Espada', 'Arma', 10, 1)");
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
-        }
-    } */
 }

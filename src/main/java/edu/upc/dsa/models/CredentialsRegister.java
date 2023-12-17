@@ -1,40 +1,27 @@
 package edu.upc.dsa.models;
 
+public class CredentialsRegister {
+    private String username;
+    private String password;
+    private String telephone;
+    private String email;
 
-
-public class Player {
-
-    //Attributes
-
-    //int id;
-    String username;
-    String password;
-    String telephone;
-    String email;
-    int coins;
-
-    //Constructor
-    public Player() {
+    public CredentialsRegister() {
     }
 
-
-    public Player(String username, String password, String telephone, String email) {
-        this();
+    public CredentialsRegister(String username, String password, String telephone, String email) {
         this.username = username;
         this.password = password;
         this.telephone = telephone;
         this.email = email;
-        this.coins = 200;
     }
-
-    //Getters and setters
 
     public String getUsername() {
         return username;
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        this.username=username;
     }
 
     public String getPassword() {
@@ -42,13 +29,15 @@ public class Player {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password=password;
     }
+
     public String getTelephone() {
         return telephone;
     }
+
     public void setTelephone(String telephone) {
-        this.telephone = telephone;
+        this.telephone=telephone;
     }
 
     public String getEmail() {
@@ -56,14 +45,6 @@ public class Player {
     }
 
     public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public int getCoins() {
-        return coins;
-    }
-
-    public void setCoins(int coins) {
-        this.coins = coins;
+        this.email=email;
     }
 }
