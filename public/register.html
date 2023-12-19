@@ -52,6 +52,35 @@
             text-decoration: underline;
         }
     </style>
+    <script>
+    $(document).ready(function () {
+        $("#registerButton").click(function () {
+
+            var dataBody =
+            {
+                username: $("#username").val(),
+                password: $("#password").val(),
+                telephoneNumber: $("#telephoneNumber").val(),
+                email: $("#email").val()
+            }
+
+            var URL = "/dsaApp/player/register";
+            $.post({
+                url: URL,
+                data: JSON.stringify(dataBody),
+                contentType: 'application/json; charset=utf-8'
+            })
+            .done(function (data, status) {
+                alert("Registration successful");
+                location.href = "/login.html";
+            })
+            .fail(function (xhr, err) {
+                alert(err + " : " + xhr.responseText);
+                location.reload();
+            })
+        });
+    });
+</script>
 </head>
 <body>
 <div class="container">
@@ -84,36 +113,5 @@
         </div>
     </div>
 </div>
-
-
-<script>
-    $(document).ready(function () {
-        $("#registerButton").click(function () {
-
-            var dataBody = {
-                username: $("#username").val(),
-                password: $("#password").val(),
-                telephoneNumber: $("#telephoneNumber").val(),
-                email: $("#email").val()
-            };
-            console.log(dataBody);
-
-            var URL = "http://localhost:8080/dsaApp/trappy/player/register";
-            $.post({
-                url: URL,
-                data: JSON.stringify(dataBody),
-                contentType: 'application/json; charset=utf-8'
-            })
-            .done(function (data, status) {
-                alert("Registration successful");
-                location.href = "/login.html";
-            })
-            .fail(function (xhr, err) {
-                alert(err + " : " + xhr.responseText);
-                location.reload();
-            });
-        });
-    });
-</script>
 </body>
 </html>
