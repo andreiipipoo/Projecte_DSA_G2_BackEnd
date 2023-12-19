@@ -1,7 +1,10 @@
 package edu.upc.dsa.CRUD.util;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 import java.util.HashMap;
 import java.util.Objects;
+import java.lang.reflect.Field;
 
 public class QueryHelper {
 
@@ -54,9 +57,9 @@ public class QueryHelper {
          */
     }
 
-    public static String createQuerySELECT(Class theClass, String field, String value){
+    public static String createQuerySELECT(Class theClass, String field){
         StringBuffer sb = new StringBuffer();
-        sb.append("SELECT * FROM ").append(theClass.getSimpleName());
+        sb.append("SELECT * FROM ").append(theClass.getSimpleName().toLowerCase());
         sb.append(" WHERE " + field + " = ?");
         return sb.toString();
         /*
@@ -69,22 +72,48 @@ public class QueryHelper {
 
     public static String createQuerySELECTAll(Class theClass){
         StringBuffer sb = new StringBuffer();
-        sb.append("SELECT * FROM ").append(theClass.getSimpleName());
+        sb.append("SELECT * FROM ").append(theClass.getSimpleName().toLowerCase());
         return sb.toString();
     }
 
-    public static String createQueryDELETE(Class theClass, String field, String value){
+    public static String createQuerySELECTByUsername(Class theClass, String username){
+        //Using StringBuilder for better performance
+        StringBuilder sb = new StringBuilder("SELECT * FROM ").append(theClass.getSimpleName());
+        sb.append(" WHERE USERNAME = ?");
+        return sb.toString();
+    }
+
+    public static String createQuerySELECTWithParams(Class theClass, HashMap params){
+
+        StringBuffer sb = new StringBuffer("SELECT * FROM ").append(theClass.getSimpleName().toLowerCase());
+        sb.append(" WHERE (");
+
+        params.forEach((k, v) -> {
+            // Assume k is a valid column name, and v is a value for the column
+            if (k.equals("password")) {
+                sb.append(k).append(" = MD5(?) AND ");
+            } else {
+                sb.append(k).append(" = ? AND ");
+            }
+        });
+
+        if (!params.isEmpty()) {
+            sb.delete(sb.length() - 5, sb.length()); // Remove the trailing " AND "
+        }
+
+        sb.append(")");
+
+        return sb.toString();
+    }
+
+    public static String createQueryDELETE(Class theClass, String field){
         StringBuffer sb = new StringBuffer();
         sb.append("DELETE FROM ").append(theClass.getSimpleName());
         sb.append(" WHERE " + field + " = ?");
         return sb.toString();
     }
 
-    public static String createQueryUPDATE(Object entity, String field, String value){
-        StringBuffer sb = new StringBuffer();
-        sb.append("UPDATE Player ");
-        sb.append(" SET " + field + " = ?");
-        sb.append(" WHERE USERNAME = ?");
-        return sb.toString();
-    }
+    //public static String createQueryUPDATE(Object entity) {
+    //
+    //}
 }

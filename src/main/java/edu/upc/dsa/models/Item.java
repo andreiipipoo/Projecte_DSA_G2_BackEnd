@@ -4,27 +4,34 @@ public class Item {
 
     //Attributes
 
-    //private int id;
-
-    private String name;
-    private String description;
-    private String type;
-    private int price;
+    String id;
+    String name;
+    String description;
+    String type;
+    int price;
 
     //Constructor
 
     public Item() {
     }
 
-    public Item(String name, String description, String type, int price) {
-        this();
-        this.name = name;
-        this.description = description;
-        this.type = type;
-        this.price = price;
+    public Item(String id, String name, String description, String type, int price) {
+        this.id=id;
+        this.name=name;
+        this.description=description;
+        this.type=type;
+        this.setPrice(price);
     }
 
     //Getters and setters
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id=id;
+    }
 
     public String getName() {
         return name;

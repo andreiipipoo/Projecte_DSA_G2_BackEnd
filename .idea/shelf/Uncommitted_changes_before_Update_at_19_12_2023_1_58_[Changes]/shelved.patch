@@ -1,0 +1,16 @@
+Index: src/main/java/edu/upc/dsa/CRUD/DAO/TrappyManager.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package edu.upc.dsa.CRUD.DAO;\r\n\r\nimport edu.upc.dsa.exceptions.*;\r\nimport edu.upc.dsa.models.*;\r\nimport java.sql.SQLException;\r\nimport java.util.List;\r\n\r\n\r\npublic interface TrappyManager {\r\n\r\n   /** Players **/\r\n   public void registerPlayer(String username, String password, String telephone, String email) throws PlayerExistsException, MissingDataException;\r\n   public Player addPlayer(Player player) throws NotAnEmailException, MissingDataException, PlayerExistsException;\r\n   public Player getPlayer(String id) throws PlayerNotFoundException;\r\n   public List<Player> findAllPlayers();\r\n   public int sizePlayers();\r\n   public void updatePlayer(String field, String player, String value);\r\n   public Credentials loginPlayer(String username, String password) throws PlayerNotFoundException, MissingDataException;\r\n\r\n    /** Items **/\r\n\r\n\r\n\r\n\r\n    /** Shop **/\r\n\r\n\r\n\r\n\r\n\r\n    /** Partida **/\r\n\r\n\r\n\r\n\r\n\r\n\r\n}\r\n
+===================================================================
+diff --git a/src/main/java/edu/upc/dsa/CRUD/DAO/TrappyManager.java b/src/main/java/edu/upc/dsa/CRUD/DAO/TrappyManager.java
+--- a/src/main/java/edu/upc/dsa/CRUD/DAO/TrappyManager.java	
++++ b/src/main/java/edu/upc/dsa/CRUD/DAO/TrappyManager.java	
+@@ -9,6 +9,7 @@
+ public interface TrappyManager {
+ 
+    /** Players **/
++   //LOL
+    public void registerPlayer(String username, String password, String telephone, String email) throws PlayerExistsException, MissingDataException;
+    public Player addPlayer(Player player) throws NotAnEmailException, MissingDataException, PlayerExistsException;
+    public Player getPlayer(String id) throws PlayerNotFoundException;

@@ -18,18 +18,17 @@ public class SessionImpl implements Session {
         this.conn = conn;
     }
 
-    public void save(Object entity) throws SQLIntegrityConstraintViolationException{
+    public void save(Object entity) throws SQLException{
         String insertQuery = QueryHelper.createQueryINSERT(entity);
-        PreparedStatement pstmnt = null;
+        PreparedStatement pstm = null;
         try {
-            pstmnt = conn.prepareStatement(insertQuery);
+            pstm = conn.prepareStatement(insertQuery);
+            pstm.setObject(1, 0);
             int i = 1;
-            for (String field : ObjectHelper.getFields(entity)) {
-                pstmnt.setObject(i++, ObjectHelper.getter(entity, field));
+            for (String field: ObjectHelper.getFields(entity)) {
+                pstm.setObject(i++, ObjectHelper.getter(entity, field));
             }
-            pstmnt.executeUpdate();
-        } catch (SQLIntegrityConstraintViolationException e) {
-            throw new SQLIntegrityConstraintViolationException();
+            pstm.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -43,77 +42,42 @@ public class SessionImpl implements Session {
         }
     }
 
-    public Object get(Class theClass, String columna, String value) throws SQLException {
-
-        String selectQuery  = QueryHelper.createQuerySELECT(theClass, columna, value);
+    public Object get(Class theClass, String field, Object value) {
+        String selectQuery = QueryHelper.createQuerySELECT(theClass, field);
+        PreparedStatement pstm = null;
         ResultSet rs;
-        PreparedStatement pstm = null;
+        boolean found = true;
 
-        try {
+        try{
             pstm = conn.prepareStatement(selectQuery);
-            pstm.setObject(1, value); //son los ?
-            rs = pstm.executeQuery();
-            Object o = theClass.newInstance();
-
-            if (!rs.next()) {
-                // No records found
-                o = null;
-            } else{
-                ResultSetMetaData rsmd = rs.getMetaData();
-                int numberOfColumns = rsmd.getColumnCount();
-
-                do {
-                    for (int i = 1; i <= numberOfColumns; i++) {
-                        String columnName = rsmd.getColumnName(i);
-                        ObjectHelper.setter(o, columnName, rs.getObject(i));
-                    }
-                } while (rs.next());
-            }
-
-            return o;
-
-        } catch (SQLException e) {
-            throw new SQLException();
-        } catch (InstantiationException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void update(String columna, String user, String value) throws SQLIntegrityConstraintViolationException {
-        String updateQuery = QueryHelper.createQueryUPDATE(columna, user, value);
-
-        PreparedStatement pstm = null;
-
-        try {
-            pstm = conn.prepareStatement(updateQuery);
             pstm.setObject(1, value);
-            pstm.setObject(2, user);
+            rs = pstm.executeQuery();
 
-            pstm.executeUpdate();
-
-        } catch (SQLIntegrityConstraintViolationException e) {
-            // Handle constraint violation exception (e.g., unique constraint violation)
-            throw new SQLIntegrityConstraintViolationException();
-        }  catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void delete(Class theClass, String columna, String username) {
-        String deleteQuery = QueryHelper.createQueryDELETE(theClass, columna, username);
-
-        try {
-            PreparedStatement pstm = conn.prepareStatement(deleteQuery);
-            pstm.setObject(1, username);
-
-            int rowsAffected = pstm.executeUpdate();
-            System.out.println(rowsAffected + " rows deleted");
-
+            ResultSetMetaData metadata = rs.getMetaData();
+            int numberOfColumns = metadata.getColumnCount();
+            Object o = theClass.newInstance();
+            Object object = null;
+            while (rs.next()){
+                for (int j=1; j<=numberOfColumns; j++){
+                    String columnName = metadata.getColumnName(j);
+                    ObjectHelper.setter(o, columnName, rs.getObject(j));
+                    object = rs.getObject(j);
+                }
+            }
+            return o;
+        } catch (InstantiationException | IllegalAccessException e) {
+            throw new RuntimeException(e);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return null;
+    }
+
+    /*public void update(Object object) throws SQLException {
+
+    }*/
+
+    public void delete(Object object) {
     }
 
     public List<Object> findAll(Class theClass) {
@@ -138,30 +102,71 @@ public class SessionImpl implements Session {
                 }
                 list.add(o);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+            return list;
+        } catch (SQLException | InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
         }
-        return list;
+        return null;
     }
 
-    public int size(Class theClass){
-        String query = QueryHelper.createQuerySELECTAll(theClass);
+    @Override
+    public List<Object> query(String query, Class theClass, HashMap params) {
+       return null;
+    }
+
+    public List<Object> findAll(Class theClass, HashMap params){
+        String query = QueryHelper.createQuerySELECTWithParams(theClass, params);
         PreparedStatement pstm =null;
-        ResultSet rs;
-        int size = 0;
         try{
             pstm = conn.prepareStatement(query);
-            rs = pstm.executeQuery();
-            while (rs.next()){
-                size++;
+            int i = 1;
+            for (Object value: params.values()) {
+                pstm.setObject(i++, value);
             }
-        } catch (SQLException e) {
+            pstm.executeQuery();
+            ResultSet rs = pstm.getResultSet();
+            List<Object> list = new LinkedList<>();
+            ResultSetMetaData metadata = rs.getMetaData();
+            int numberOfColumns = metadata.getColumnCount();
+            while (rs.next()){
+                Object o = theClass.newInstance();
+                for (int j=1; j<=numberOfColumns; j++){
+                    String columnName = metadata.getColumnName(j);
+                    ObjectHelper.setter(o, columnName, rs.getObject(j));
+                }
+                list.add(o);
+            }
+            return list;
+        } catch (SQLException | InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
         }
-        return size;
+        return null;
+    }
+
+    public List<Object> getList(Class theClass, String key, Object value) {
+        String query = QueryHelper.createQuerySELECT(theClass, key);
+        ResultSet rs;
+        List<Object> list = new LinkedList<>();
+        PreparedStatement pstm;
+
+        try {
+            pstm = conn.prepareStatement(query);
+            pstm.setObject(1, value);
+            rs = pstm.executeQuery();
+            ResultSetMetaData metadata = rs.getMetaData();
+            int numberOfColumns = metadata.getColumnCount();
+            while (rs.next()){
+                Object o = theClass.newInstance();
+                for (int j=1; j<=numberOfColumns; j++){
+                    String columnName = metadata.getColumnName(j);
+                    ObjectHelper.setter(o, columnName, rs.getObject(j));
+                }
+                list.add(o);
+            }
+            return list;
+        } catch (SQLException | InstantiationException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

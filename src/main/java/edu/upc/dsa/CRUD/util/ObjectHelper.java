@@ -34,22 +34,28 @@ public class ObjectHelper {
         return property.substring(0,1).toUpperCase()+property.substring(1);
     }
 
+    public static String getFieldName(Class theClass, String fields){
+        Field field = (Field) Arrays.stream(theClass.getDeclaredFields()).filter((x) -> {
+            return x.getName().matches("(?i).*"+ fields +".*");
+        }).findFirst().orElse((Field) null);
+
+        assert field != null;
+        return field.getName();
+    }
+
     public static Object getter(Object object, String property) {
-        // Method // invoke
         // Method // invoke
         String propToUppercase = property.substring(0, 1).toUpperCase() + property.substring(1);
         String getterName = "get" + propToUppercase;
         try {
-            Method m = object.getClass().getDeclaredMethod(getterName);
-            Object o = m.invoke(object);
-            return o;
-
-        }catch (NoSuchMethodException e){
-            e.printStackTrace();
-            return null;
-        } catch (Exception e) {
-            e.printStackTrace();
+            Method method = object.getClass().getDeclaredMethod(getterName);
+            Object value = method.invoke(object);
+            return value;
+        }catch (NoSuchMethodException  | IllegalAccessException | InvocationTargetException ex) {
+            ex.printStackTrace();
             return null;
         }
     }
+
+    //getIdFieldName
 }

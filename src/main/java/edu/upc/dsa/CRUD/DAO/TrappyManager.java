@@ -8,31 +8,22 @@ import java.util.List;
 
 public interface TrappyManager {
 
+   int size();
+
    /** Players **/
-   public void registerPlayer(String username, String password, String telephone, String email) throws PlayerExistsException, MissingDataException;
-   public Player addPlayer(Player player) throws NotAnEmailException, MissingDataException, PlayerExistsException;
-   public Player getPlayer(String id) throws PlayerNotFoundException;
-   public List<Player> findAllPlayers();
-   public int sizePlayers();
-   public void updatePlayer(String field, String player, String value);
-   public Credentials loginPlayer(String username, String password) throws PlayerNotFoundException, MissingDataException;
+   Player registerPlayer(Player p) throws EmailAlreadyInUseException;
+   String loginPlayer(Credentials c) throws PlayerNotRegisteredException, PasswordIsIncorrectException;
+   List <Player> getPlayers();
+   int getNumPlayers();
+   int getLoggedPlayers();
 
-    /** Items **/
+   /** Items **/
+   int getNumItems();
+   List <Item> ShopItems();
 
+   /** Inventory **/
+   List <Inventory> InventoryMagic();
 
-
-
-    /** Shop **/
-
-
-
-
-
-    /** Partida **/
-
-
-
-
-
+   /** Partida **/
 
 }

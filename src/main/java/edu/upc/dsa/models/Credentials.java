@@ -1,8 +1,8 @@
 package edu.upc.dsa.models;
 
 public class Credentials {
-    private String username;
-    private String password;
+     String username;
+     String password;
 
     public Credentials() {
     }
