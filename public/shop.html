@@ -14,7 +14,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
     $(document).ready(function () {
-    var url = "http://147.83.7.204:80/dsaApp/item/shop";
+    var url = "/dsaApp/item/shop";
     $.get(url, function (data) {
         for (var key = 0; key < data.length; key++) {
             var newItem = $("<div class='escape-room-item'></div>");

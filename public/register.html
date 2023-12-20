@@ -54,32 +54,33 @@
     </style>
     <script>
     $(document).ready(function () {
-        $("#registerButton").click(function () {
+    $("#registerButton").click(function () {
+        var dataBody = {
+            username: $("#username").val(),
+            password: $("#password").val(),
+            telephoneNumber: $("#telephoneNumber").val(),
+            email: $("#email").val()
+        };
 
-            var dataBody =
-            {
-                username: $("#username").val(),
-                password: $("#password").val(),
-                telephoneNumber: $("#telephoneNumber").val(),
-                email: $("#email").val()
-            }
-
-            var URL = "http://147.83.7.204:80/dsaApp/player/register";
-            $.post({
-                url: URL,
-                data: JSON.stringify(dataBody),
-                contentType: 'application/json; charset=utf-8'
-            })
-            .done(function (data, status) {
+        var URL = "/dsaApp/player/register";
+        $.post(
+            URL,
+            JSON.stringify(dataBody),
+            function (data, status) {
+                // Success callback
                 alert("Registration successful");
                 location.href = "/login.html";
-            })
-            .fail(function (xhr, err) {
-                alert(err + " : " + xhr.responseText);
-                location.reload();
-            })
+            },
+            'json' // Specify the expected response format
+        )
+        .fail(function (xhr, err) {
+            // Error callback
+            alert(err + " : " + xhr.responseText);
+            location.reload();
         });
     });
+});
+
 </script>
 </head>
 <body>

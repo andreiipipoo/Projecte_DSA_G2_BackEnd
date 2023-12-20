@@ -30,7 +30,8 @@ public class PlayerManagerImpl implements PlayerManager {
             Player player = new Player(idPlayer, username, password, telephone, email);
             session.save(player);
         } catch (Exception e) {
-            logger.error("Error adding player", e);
+            logger.error("Error adding a player",e);
+
         } finally {
             session.close();
         }
