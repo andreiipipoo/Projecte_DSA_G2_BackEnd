@@ -82,7 +82,7 @@
             var dataBody = {
                 username: $("#username").val(),
                 password: $("#password").val()
-            };
+            }
 
             var URL = "/dsaApp/player/login";
             $.post({
@@ -97,7 +97,7 @@
             .fail(function (xhr, err) {
                 alert("Wrong information");
                 location.reload();
-            });
+            })
         });
     });
 </script>

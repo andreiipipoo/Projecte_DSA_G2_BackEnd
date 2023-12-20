@@ -61,7 +61,7 @@ public class SessionImpl implements Session {
                 for (int j=1; j<=numberOfColumns; j++){
                     String columnName = metadata.getColumnName(j);
                     ObjectHelper.setter(o, columnName, rs.getObject(j));
-                    object = rs.getObject(j);
+                    o = rs.getObject(j);
                 }
             }
             return o;

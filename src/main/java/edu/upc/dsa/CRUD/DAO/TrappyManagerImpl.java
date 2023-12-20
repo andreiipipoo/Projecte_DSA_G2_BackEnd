@@ -48,19 +48,10 @@ public class TrappyManagerImpl implements TrappyManager {
     //Register a player
     @Override
     public Player registerPlayer(Player p) throws EmailAlreadyInUseException {
-        Player player = playersMap2.get(p.getEmail());
-        if(player != null) throw new EmailAlreadyInUseException();
-        else {
-            String id = player.getIdPlayer();
-            String username = player.getUsername();
-            String password = player.getPassword();
-            String telephone = player.getTelephone();
-            String email = player.getEmail();
             PlayerManager pm = new PlayerManagerImpl();
-            pm.addPlayer(id, username, password, telephone, email);
+            pm.addPlayer(p.getIdPlayer(), p.getUsername(),p.getPassword(),p.getTelephone(),p.getEmail());
             logger.info("new player registered");
-            return player;
-        }
+            return p;
     }
 
     //Login a player
