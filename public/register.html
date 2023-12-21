@@ -59,7 +59,7 @@
         {
             username: $("#username").val(),
             password: $("#password").val(),
-            telephoneNumber: $("#telephoneNumber").val(),
+            telephone: $("#telephone").val(),
             email: $("#email").val()
         }
 
@@ -69,7 +69,7 @@
             data: JSON.stringify(dataBody),
             contentType: 'application/json; charset=utf-8'
             })
-
+            
             .done(function(data, status){
             //alert("registration successful");
             location.href = "/login.html";
@@ -99,7 +99,7 @@
     </div>
 
     <div class="input-group">
-        <input type="tel" class="form-control" placeholder="Telephone Number" id="telephoneNumber" name="telephoneNumber" required>
+        <input type="tel" class="form-control" placeholder="Telephone Number" id="telephone" name="telephone" required>
     </div>
 
     <div class="input-group">
@@ -117,4 +117,3 @@
     </div>
 </div>
 </body>
-</html>
