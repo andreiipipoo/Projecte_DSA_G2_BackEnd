@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import java.util.HashMap;
+import edu.upc.dsa.models.*;
 
 public interface Session<E> {
     void save(Object entity) throws SQLException;
@@ -14,6 +15,5 @@ public interface Session<E> {
     List<Object> findAll(Class theClass, HashMap<String,String> params) throws SQLException;
     List<Object> query(String query, Class theClass, HashMap params);
     List<Object> getList(Class theClass, String key, Object value);
-
-    //void update(Object object) throws SQLException;
+    void update(Object object) throws SQLException;
 }

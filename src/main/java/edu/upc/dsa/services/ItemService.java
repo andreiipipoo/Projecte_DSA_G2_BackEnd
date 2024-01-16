@@ -1,24 +1,17 @@
 package edu.upc.dsa.services;
 
 import edu.upc.dsa.CRUD.DAO.*;
-import edu.upc.dsa.CRUD.DAO.TrappyManager;
-import edu.upc.dsa.CRUD.DAO.TrappyManagerImpl;
-import edu.upc.dsa.exceptions.*;
 import edu.upc.dsa.models.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import io.swagger.models.auth.In;
 import org.apache.log4j.Logger;
 
-import javax.naming.InsufficientResourcesException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Api(value = "/item", description = "Endpoint to Player Service")

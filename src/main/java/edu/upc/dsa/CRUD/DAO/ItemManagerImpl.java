@@ -8,16 +8,37 @@ import org.apache.log4j.Logger;
 import edu.upc.dsa.CRUD.MYSQL.FactorySession;
 import edu.upc.dsa.CRUD.MYSQL.Session;
 
-public class ItemManagerImpl implements ItemManager{
+
+public class ItemManagerImpl implements ItemManager {
     final static Logger logger = Logger.getLogger(ItemManagerImpl.class);
-    private static ItemManagerImpl instance;
-    public static ItemManagerImpl getInstance() {
-        if (instance==null) instance = new ItemManagerImpl();
-        return instance;
+
+    /**
+     * Retrieve an Item by its unique identifier.
+     *
+     * @param idItem The unique identifier of the Item to be retrieved.
+     * @return The Item with the specified ID.
+     * @throws NoItemExistsException If no Item exists with the specified ID.
+     * @throws SQLException         If a SQL-related exception occurs.
+     */
+    public Item getItemById(String idItem) throws NoItemExistsException, SQLException {
+        Session session = null;
+        Item item = null;
+        try {
+            session = FactorySession.openSession();
+            item = (Item) session.get(Item.class, "idItem", idItem);
+        } catch (Exception e) {
+            logger.error("Error getting item", e);
+        } finally {
+            session.close();
+        }
+        return item;
     }
 
-    //Get all items
-    @Override
+    /**
+     * Retrieve a list of all Items.
+     *
+     * @return List of Items.
+     */
     public List<Item> getItems() {
         Session session = null;
         List<Item> items = null;
@@ -31,22 +52,5 @@ public class ItemManagerImpl implements ItemManager{
         }
         return items;
     }
-
-    //Get an item by id
-    @Override
-    public Item getItemById(String id) throws NoItemExistsException {
-        Session session = null;
-        Item item = null;
-        try {
-            session = FactorySession.openSession();
-            item = (Item) session.get(Item.class,"id", id);
-            if (item == null) throw new NoItemExistsException();
-        } catch (Exception e) {
-            logger.error("Error getting item", e);
-        } finally {
-            session.close();
-        }
-        return item;
-    }
-
 }
+

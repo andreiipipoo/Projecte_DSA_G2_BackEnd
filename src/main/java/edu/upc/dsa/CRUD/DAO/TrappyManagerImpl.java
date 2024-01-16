@@ -1,14 +1,10 @@
 package edu.upc.dsa.CRUD.DAO;
 
-import edu.upc.dsa.CRUD.DAO.*;
-import edu.upc.dsa.CRUD.MYSQL.Session;
-
-import java.util.List;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 
-import java.sql.SQLException;
+
 import edu.upc.dsa.exceptions.*;
 import edu.upc.dsa.models.*;
 import org.apache.log4j.Logger;
@@ -48,10 +44,10 @@ public class TrappyManagerImpl implements TrappyManager {
     //Register a player
     @Override
     public Player registerPlayer(Player p) throws EmailAlreadyInUseException {
-            PlayerManager pm = new PlayerManagerImpl();
-            pm.addPlayer(p.getIdPlayer(), p.getUsername(),p.getPassword(),p.getTelephone(),p.getEmail());
-            logger.info("new player registered");
-            return p;
+        PlayerManager pm = new PlayerManagerImpl();
+        pm.addPlayer(p.getIdPlayer(), p.getUsername(),p.getPassword(),p.getTelephone(),p.getEmail());
+        logger.info("new player registered");
+        return p;
     }
 
     //Login a player
@@ -134,4 +130,5 @@ public class TrappyManagerImpl implements TrappyManager {
     public int getLoggedPlayers() {
         return this.playersLogged.size();
     }
+
 }

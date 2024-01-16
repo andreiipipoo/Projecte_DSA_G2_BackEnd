@@ -4,9 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c81be3c7-98a2-43e5-a4e4-4315a77ee2f1" name="Changes" comment="Registre (local) working telephone">
+    <list default="true" id="c81be3c7-98a2-43e5-a4e4-4315a77ee2f1" name="Changes" comment="Rutes actualitzades html v2">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_14_12_2023_16_47_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_14_12_2023_16_47__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_12_2023_1_56_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_12_2023_1_56__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_12_2023_2_10_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_12_2023_2_10__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/CRUD/DAO/InventoryManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/CRUD/DAO/InventoryManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/CRUD/DAO/InventoryManagerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/CRUD/DAO/InventoryManagerImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/CRUD/DAO/ItemManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/CRUD/DAO/ItemManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/CRUD/DAO/ItemManagerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/CRUD/DAO/ItemManagerImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/CRUD/DAO/PlayerManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/CRUD/DAO/PlayerManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/CRUD/DAO/PlayerManagerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/CRUD/DAO/PlayerManagerImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/CRUD/DAO/TrappyManager.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/CRUD/DAO/TrappyManagerImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/CRUD/MYSQL/Session.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/CRUD/MYSQL/Session.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/CRUD/MYSQL/SessionImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/CRUD/MYSQL/SessionImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/services/ItemService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/services/ItemService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/services/PlayerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/services/PlayerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/edu/upc/dsa/TrappyManagerImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/edu/upc/dsa/TrappyManagerImplTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +82,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/1r. UPC/1r Quadrimestre/Programació I&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/EETAC/3A/DSA/Minim_2_BackEnd_Andrei&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.testRunning&quot;
   }
 }</component>
@@ -86,7 +104,7 @@
       <module name="rest-example2" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="edu.upc.dsa.*" />
+          <option name="PATTERN" value="edu.upc.dsa.CRUD.DAO.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -98,11 +116,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PlayerManagerTest.testRegisterPlayer (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="PlayerManagerTest.testRegisterPlayer" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="rest-example2" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="edu.upc.dsa.*" />
+          <option name="PATTERN" value="edu.upc.dsa.CRUD.DAO.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -118,7 +136,7 @@
       <module name="rest-example2" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="edu.upc.dsa.*" />
+          <option name="PATTERN" value="edu.upc.dsa.CRUD.DAO.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -134,7 +152,7 @@
       <module name="rest-example2" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="edu.upc.dsa.*" />
+          <option name="PATTERN" value="edu.upc.dsa.CRUD.DAO.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -150,7 +168,7 @@
       <module name="rest-example2" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="edu.upc.dsa.*" />
+          <option name="PATTERN" value="edu.upc.dsa.CRUD.DAO.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -261,23 +279,7 @@
       <option name="project" value="LOCAL" />
       <updated>1703072708982</updated>
     </task>
-    <task id="LOCAL-00011" summary="Registre (local) working">
-      <option name="closed" value="true" />
-      <created>1703092439626</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1703092439626</updated>
-    </task>
-    <task id="LOCAL-00012" summary="Registre (local) working telephone">
-      <option name="closed" value="true" />
-      <created>1703148092360</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1703148092360</updated>
-    </task>
-    <option name="localTasksCounter" value="13" />
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -290,9 +292,7 @@
     <MESSAGE value="Projecte aixecat en servidor" />
     <MESSAGE value="Rutes actualitzades ip servidor" />
     <MESSAGE value="Rutes actualitzades html v2" />
-    <MESSAGE value="Registre (local) working" />
-    <MESSAGE value="Registre (local) working telephone" />
-    <option name="LAST_COMMIT_MESSAGE" value="Registre (local) working telephone" />
+    <option name="LAST_COMMIT_MESSAGE" value="Rutes actualitzades html v2" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
