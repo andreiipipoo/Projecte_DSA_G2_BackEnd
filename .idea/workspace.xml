@@ -4,28 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c81be3c7-98a2-43e5-a4e4-4315a77ee2f1" name="Changes" comment="Rutes actualitzades html v2">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_14_12_2023_16_47_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_14_12_2023_16_47__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_12_2023_1_56_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_12_2023_1_56__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_12_2023_2_10_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_12_2023_2_10__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/CRUD/DAO/InventoryManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/CRUD/DAO/InventoryManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/CRUD/DAO/InventoryManagerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/CRUD/DAO/InventoryManagerImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/CRUD/DAO/ItemManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/CRUD/DAO/ItemManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/CRUD/DAO/ItemManagerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/CRUD/DAO/ItemManagerImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/CRUD/DAO/PlayerManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/CRUD/DAO/PlayerManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/CRUD/DAO/PlayerManagerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/CRUD/DAO/PlayerManagerImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/CRUD/DAO/TrappyManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/CRUD/DAO/TrappyManagerImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/CRUD/MYSQL/Session.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/CRUD/MYSQL/Session.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/CRUD/MYSQL/SessionImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/CRUD/MYSQL/SessionImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/services/ItemService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/services/ItemService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/services/PlayerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/services/PlayerService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/edu/upc/dsa/TrappyManagerImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/edu/upc/dsa/TrappyManagerImplTest.java" afterDir="false" />
-    </list>
+    <list default="true" id="c81be3c7-98a2-43e5-a4e4-4315a77ee2f1" name="Changes" comment="D5-before the presentation" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -279,7 +258,15 @@
       <option name="project" value="LOCAL" />
       <updated>1703072708982</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="D5-before the presentation">
+      <option name="closed" value="true" />
+      <created>1705434027356</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1705434027356</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -292,7 +279,8 @@
     <MESSAGE value="Projecte aixecat en servidor" />
     <MESSAGE value="Rutes actualitzades ip servidor" />
     <MESSAGE value="Rutes actualitzades html v2" />
-    <option name="LAST_COMMIT_MESSAGE" value="Rutes actualitzades html v2" />
+    <MESSAGE value="D5-before the presentation" />
+    <option name="LAST_COMMIT_MESSAGE" value="D5-before the presentation" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
