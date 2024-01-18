@@ -1,45 +1,45 @@
 package edu.upc.dsa.models;
+import edu.upc.dsa.CRUD.util.RandomUtils;
 
 public class Inventory {
-    String name;
-    public String idPlayer;
-    public String idItem;
+    private String id;
+    private String idPlayer;
+    private String idItem;
 
+    //Void constructor
     public Inventory() {
     }
 
-    public Inventory(String name, String idPlayer, String idItem) {
-        this.name = name;
+    //Constructor
+    public Inventory(String idPlayer, String idItem) {
+        this.id = RandomUtils.getId();
         this.idPlayer = idPlayer;
         this.idItem = idItem;
     }
 
-    public String getName() {
-        return name;
+    //Getters and setters
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getIdPlayer() {
         return idPlayer;
     }
 
-    public String getIdItem() {
-        return idItem;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public void setIdPlayer(String idPlayer) {
         this.idPlayer = idPlayer;
     }
 
-    public void setIdItem(String idItem) {
-        this.idItem = idItem;
+    public String getIdItem() {
+        return idItem;
     }
 
-    @Override
-    public String toString() {
-        return "Inventory [name=" + name + ", idPlayer=" + idPlayer + ", idItem=" + idItem + "]";
+    public void setIdItem(String idItem) {
+        this.idItem = idItem;
     }
 }

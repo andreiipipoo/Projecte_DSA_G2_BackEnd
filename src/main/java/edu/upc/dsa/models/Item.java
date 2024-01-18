@@ -1,26 +1,28 @@
 package edu.upc.dsa.models;
 
+import edu.upc.dsa.CRUD.util.RandomUtils;
+
 public class Item {
 
-    //Attributes
+    private String id;
+    private String name;
+    private String description;
+    private String type;
+    private int price;
+    private String avatar;
 
-    String id;
-    String name;
-    String description;
-    String type;
-    int price;
-
-    //Constructor
-
+    //Void Constructor
     public Item() {
     }
 
-    public Item(String id, String name, String description, String type, int price) {
-        this.id=id;
-        this.name=name;
-        this.description=description;
-        this.type=type;
-        this.setPrice(price);
+    //Constructor
+    public Item(String name, String description, String type, int price) {
+        this.id = RandomUtils.getId();
+        this.name = name;
+        this.description = description;
+        this.type = type;
+        this.price = price;
+        this.avatar = "images/" + name + ".png";
     }
 
     //Getters and setters
@@ -30,7 +32,7 @@ public class Item {
     }
 
     public void setId(String id) {
-        this.id=id;
+        this.id = id;
     }
 
     public String getName() {
@@ -38,7 +40,7 @@ public class Item {
     }
 
     public void setName(String name) {
-        this.name=name;
+        this.name = name;
     }
 
     public String getDescription() {
@@ -46,7 +48,7 @@ public class Item {
     }
 
     public void setDescription(String description) {
-        this.description=description;
+        this.description = description;
     }
 
     public String getType() {
@@ -54,7 +56,7 @@ public class Item {
     }
 
     public void setType(String type) {
-        this.type=type;
+        this.type = type;
     }
 
     public int getPrice() {
@@ -62,6 +64,19 @@ public class Item {
     }
 
     public void setPrice(int price) {
-        this.price=price;
+        this.price = price;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    @Override
+    public String toString() {
+        return "Item [id=" + id + ", name=" + name + ", description=" + description + ", type=" + type + ", price=" + price + ", avatar=" + avatar + "]";
     }
 }

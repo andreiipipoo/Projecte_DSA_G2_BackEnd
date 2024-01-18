@@ -1,34 +1,37 @@
 package edu.upc.dsa.models;
-
 import edu.upc.dsa.CRUD.util.RandomUtils;
-import edu.upc.dsa.exceptions.YouAreBrokeWithCoinsException;
 
 public class Player {
-    String idPlayer;
-    String username;
-    String password;
-    String telephone;
-    String email;
-    int trappycoins;
+    private String id;
+    private String username;
+    private String password;
+    private String telephone;
+    private String email;
+    private Integer croCoins;
 
-    public Player() {
-    }
-
-    public Player(String idPlayer, String username, String password, String telephone, String email) {
-        this();
-        this.idPlayer = RandomUtils.getId();
+    //Constructor
+    public Player(String username, String password, String telephone, String email) {
+        this.id = RandomUtils.getId();
         this.username = username;
         this.password = password;
         this.telephone = telephone;
         this.email = email;
-        this.trappycoins = 300;
-    }
-    public String getIdPlayer() {
-        return idPlayer;
+        this.croCoins = 200;
     }
 
-    public void setIdPlayer(String idPlayer) {
-        this.idPlayer = idPlayer;
+    //Void constructor
+    public Player() {
+    }
+
+    //Getters and setters
+
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -37,7 +40,6 @@ public class Player {
 
     public void setUsername(String username) {
         this.username = username;
-        return;
     }
 
     public String getPassword() {
@@ -46,7 +48,6 @@ public class Player {
 
     public void setPassword(String password) {
         this.password = password;
-        return;
     }
 
     public String getTelephone() {
@@ -55,7 +56,6 @@ public class Player {
 
     public void setTelephone(String telephone) {
         this.telephone = telephone;
-        return;
     }
 
     public String getEmail() {
@@ -64,37 +64,13 @@ public class Player {
 
     public void setEmail(String email) {
         this.email = email;
-        return;
     }
 
-    public int getTrappycoins() {
-        return trappycoins;
+    public Integer getCroCoins() {
+        return croCoins;
     }
 
-    public void setTrappycoins(int trappycoins) {
-        this.trappycoins = trappycoins;
-        return;
-    }
-
-    @Override
-    public String toString() {
-        return "Player [idPlayer=" + idPlayer + ", username=" + username + ", password=" + password + ", telephone="
-                + telephone + ", email=" + email + ", trappycoins=" + trappycoins + "]";
-    }
-
-    public void purchaseItem(Item item) throws YouAreBrokeWithCoinsException{
-        if(item.getPrice()>this.trappycoins) {
-            throw new YouAreBrokeWithCoinsException();
-        }
-        else{
-            this.trappycoins -= item.getPrice();
-        }
-    }
-
-    public void update(String username, String password, String telephone, String email) {
-        this.username = username;
-        this.password = password;
-        this.telephone = telephone;
-        this.email = email;
+    public void setCroCoins(Integer croCoins) {
+        this.croCoins = croCoins;
     }
 }

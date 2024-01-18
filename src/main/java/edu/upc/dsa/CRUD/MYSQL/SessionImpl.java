@@ -12,169 +12,155 @@ import java.util.LinkedList;
 import java.util.List;
 
 
-public class SessionImpl implements Session {
+public class SessionImpl<E> implements Session<E> {
     private final Connection conn;
-    public SessionImpl(Connection conn) {
+    private static SessionImpl instance;
+
+    SessionImpl(Connection conn) {
         this.conn = conn;
     }
 
-    public void save(Object entity) throws SQLException{
+    public static SessionImpl getInstance(){
+        if(instance==null){
+            Connection conn = FactorySession.getConnection();
+            instance = new SessionImpl(conn);
+        }
+        return instance;
+    }
+
+    @Override
+    public void save(Object entity) {
         String insertQuery = QueryHelper.createQueryINSERT(entity);
         PreparedStatement pstm = null;
         try {
             pstm = conn.prepareStatement(insertQuery);
-            pstm.setObject(1, 0);
-            int i = 1;
+
+            int i = 0;
             for (String field: ObjectHelper.getFields(entity)) {
-                pstm.setObject(i++, ObjectHelper.getter(entity, field));
+                pstm.setObject(++i, ObjectHelper.getter(entity,field));
             }
             pstm.executeQuery();
-        } catch (SQLException e) {
-            e.printStackTrace();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
     }
 
-    public void close(){
-        try {
-            this.conn.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public Object get(Class theClass, String field, Object value) {
-        String selectQuery = QueryHelper.createQuerySELECT(theClass, field);
+    @Override
+    public Object getByName(Class theClass, String username) {
+        String query = QueryHelper.createQuerySELECTByName(theClass, username);
         PreparedStatement pstm = null;
-        ResultSet rs;
-        boolean found = true;
-
-        try{
-            pstm = conn.prepareStatement(selectQuery);
-            pstm.setObject(1, value);
-            rs = pstm.executeQuery();
-
-            ResultSetMetaData metadata = rs.getMetaData();
-            int numberOfColumns = metadata.getColumnCount();
-            Object o = theClass.newInstance();
-            Object object = null;
-            while (rs.next()){
-                for (int j=1; j<=numberOfColumns; j++){
-                    String columnName = metadata.getColumnName(j);
-                    ObjectHelper.setter(o, columnName, rs.getObject(j));
-                    o = rs.getObject(j);
-                }
-            }
-            return o;
-        } catch (InstantiationException | IllegalAccessException e) {
-            throw new RuntimeException(e);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public void update(Object object) throws SQLException {
-        String updateQuery = QueryHelper.createQueryUPDATE(object);
-        PreparedStatement statement = conn.prepareStatement(updateQuery);
-        int i = 1;
-
-        for(String field: ObjectHelper.getFields(object)) {
-            statement.setObject(i++, ObjectHelper.getter(object, field));
-        }
-        statement.setObject(i, ObjectHelper.getter(object, ObjectHelper.getAttributeName(object.getClass(), "id")));
-        statement.executeQuery();
-    }
-
-    public void delete(Object object) {
-    }
-
-    public List<Object> findAll(Class theClass) {
-
-        String query = QueryHelper.createQuerySELECTAll(theClass);
-        PreparedStatement pstm =null;
-        ResultSet rs;
-        List<Object> list = new LinkedList<>();
         try {
             pstm = conn.prepareStatement(query);
             pstm.executeQuery();
-            rs = pstm.getResultSet();
+            ResultSet rs = pstm.getResultSet();
+            ResultSetMetaData rsmd = rs.getMetaData();
 
-            ResultSetMetaData metadata = rs.getMetaData();
-            int numberOfColumns = metadata.getColumnCount();
-
-            while (rs.next()){
-                Object o = theClass.newInstance();
-                for (int j=1; j<=numberOfColumns; j++){
-                    String columnName = metadata.getColumnName(j);
-                    ObjectHelper.setter(o, columnName, rs.getObject(j));
+            Object entity = theClass.newInstance();
+            while(rs.next()){
+                for(int i=1; i<rsmd.getColumnCount()+1; i++){
+                    ObjectHelper.setter(entity, rsmd.getColumnName(i),rs.getObject(i));
                 }
-                list.add(o);
             }
-            return list;
-        } catch (SQLException | InstantiationException | IllegalAccessException e) {
+            return entity;
+        }
+        catch(SQLException | InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
         }
         return null;
     }
 
     @Override
-    public List<Object> query(String query, Class theClass, HashMap params) {
-       return null;
-    }
-
-    public List<Object> findAll(Class theClass, HashMap params){
-        String query = QueryHelper.createQuerySELECTWithParams(theClass, params);
-        PreparedStatement pstm =null;
-        try{
-            pstm = conn.prepareStatement(query);
-            int i = 1;
-            for (Object value: params.values()) {
-                pstm.setObject(i++, value);
-            }
-            pstm.executeQuery();
-            ResultSet rs = pstm.getResultSet();
-            List<Object> list = new LinkedList<>();
-            ResultSetMetaData metadata = rs.getMetaData();
-            int numberOfColumns = metadata.getColumnCount();
-            while (rs.next()){
-                Object o = theClass.newInstance();
-                for (int j=1; j<=numberOfColumns; j++){
-                    String columnName = metadata.getColumnName(j);
-                    ObjectHelper.setter(o, columnName, rs.getObject(j));
-                }
-                list.add(o);
-            }
-            return list;
-        } catch (SQLException | InstantiationException | IllegalAccessException e) {
-            e.printStackTrace();
+    public void close() {
+        try {
+            this.conn.close();
         }
-        return null;
+        catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 
-    public List<Object> getList(Class theClass, String key, Object value) {
-        String query = QueryHelper.createQuerySELECT(theClass, key);
-        ResultSet rs;
-        List<Object> list = new LinkedList<>();
-        PreparedStatement pstm;
+    @Override
+    public List<E> findAll(Class theClass) {
+        String selectAllQuery = QueryHelper.createQuerySELECTAll(theClass);
+        PreparedStatement pstm = null;
+        List<E> result = new LinkedList<E>();
 
         try {
-            pstm = conn.prepareStatement(query);
-            pstm.setObject(1, value);
-            rs = pstm.executeQuery();
-            ResultSetMetaData metadata = rs.getMetaData();
-            int numberOfColumns = metadata.getColumnCount();
-            while (rs.next()){
-                Object o = theClass.newInstance();
-                for (int j=1; j<=numberOfColumns; j++){
-                    String columnName = metadata.getColumnName(j);
-                    ObjectHelper.setter(o, columnName, rs.getObject(j));
+            pstm = conn.prepareStatement(selectAllQuery);
+            System.out.println(selectAllQuery);
+            pstm.executeQuery();
+            ResultSet rs = pstm.getResultSet();
+            ResultSetMetaData rsmd = rs.getMetaData();
+
+            while(rs.next()) {
+                Object entity = theClass.newInstance();
+                for (int i = 1; i<rsmd.getColumnCount() + 1; i++) {
+                    System.out.println(rsmd.getColumnName(i));
+                    System.out.println(rs.getObject(i));
+                    ObjectHelper.setter(entity,rsmd.getColumnName(i),rs.getObject(i));
                 }
-                list.add(o);
+                result.add((E) entity);
             }
-            return list;
-        } catch (SQLException | InstantiationException | IllegalAccessException e) {
-            e.printStackTrace();
+            return result;
+        } catch (SQLException | InstantiationException | IllegalAccessException ex) {
+            ex.printStackTrace();
+        }
+
+        return null;
+    }
+
+    @Override
+    public void delete(Object entity) {
+        String deleteQuery = QueryHelper.createQueryDELETE(entity);
+        PreparedStatement pstm = null;
+
+        try {
+            pstm = conn.prepareStatement(deleteQuery);
+            pstm.executeQuery();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @Override
+    public Object getById(Class theClass, String id) {
+        String selectByIdQuery = QueryHelper.createQuerySELECTById(theClass, id);
+        PreparedStatement pstm = null;
+        try {
+            pstm = conn.prepareStatement(selectByIdQuery);
+            pstm.executeQuery();
+            ResultSet rs = pstm.getResultSet();
+            ResultSetMetaData rsmd = rs.getMetaData();
+
+            Object entity = theClass.newInstance();
+            while(rs.next()){
+                for(int i=1; i<rsmd.getColumnCount()+1; i++){
+                    ObjectHelper.setter(entity, rsmd.getColumnName(i),rs.getObject(i));
+                }
+            }
+            return entity;
+        }
+        catch(SQLException | InstantiationException | IllegalAccessException ex) {
+            ex.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public void update(Object object) {
+        String updateQuery = QueryHelper.createQueryUPDATE(object);
+        PreparedStatement pstm = null;
+        try {
+            pstm = conn.prepareStatement(updateQuery);
+            int i = 1;
+            for (String field: ObjectHelper.getFields(object)) {
+                pstm.setObject(i++,ObjectHelper.getter(object, field));
+            }
+            pstm.executeQuery();
+        }
+        catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 }

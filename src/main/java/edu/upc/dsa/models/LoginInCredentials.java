@@ -1,16 +1,20 @@
 package edu.upc.dsa.models;
 
-public class Credentials {
-     String username;
-     String password;
+public class LoginInCredentials {
+    private String username;
+    private String password;
 
-    public Credentials() {
+    //Void constructor
+    public LoginInCredentials() {
     }
 
-    public Credentials(String username, String password) {
+    //Constructor
+    public LoginInCredentials(String username, String password) {
         this.username = username;
         this.password = password;
     }
+
+    //Getters and setters
 
     public String getUsername() {
         return username;

@@ -9,8 +9,6 @@ public class FactorySession {
 
     //private IUserDAO em;
     public static Session openSession() {
-
-
         Connection conn = getConnection();
 
         Session session = new SessionImpl(conn);
@@ -18,7 +16,7 @@ public class FactorySession {
         return session;
     }
 
-    private static Connection getConnection() {
+    public static Connection getConnection() {
         Connection conn = null;
         try {
             conn =

@@ -7,13 +7,11 @@ import java.util.HashMap;
 import edu.upc.dsa.models.*;
 
 public interface Session<E> {
-    void save(Object entity) throws SQLException;
+    void save(Object entity);
+    void delete(Object entity);
+    Object getByName(Class theClass, String username);
+    Object getById(Class theClass, String id);
+    List<E> findAll(Class theClass);
     void close();
-    Object get(Class theClass, String field , Object value);
-    void delete(Object object);
-    List<Object> findAll(Class theClass);
-    List<Object> findAll(Class theClass, HashMap<String,String> params) throws SQLException;
-    List<Object> query(String query, Class theClass, HashMap params);
-    List<Object> getList(Class theClass, String key, Object value);
-    void update(Object object) throws SQLException;
+    void update(Object entity);
 }
