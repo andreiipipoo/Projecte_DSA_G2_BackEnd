@@ -1,6 +1,7 @@
 package edu.upc.dsa.CRUD.DAO;
 
 import edu.upc.dsa.models.Player;
+import edu.upc.dsa.models.Badges;
 import java.util.List;
 
 public interface PlayerManager {

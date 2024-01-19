@@ -1,6 +1,7 @@
 package edu.upc.dsa.CRUD.DAO;
 
 import edu.upc.dsa.CRUD.DAO.PlayerManager;
+import edu.upc.dsa.models.Badges;
 import edu.upc.dsa.models.Player;
 import org.apache.log4j.Logger;
 import java.util.LinkedList;
@@ -114,4 +115,5 @@ public class PlayerManagerImpl implements PlayerManager {
     }
 
      */
+
 }
