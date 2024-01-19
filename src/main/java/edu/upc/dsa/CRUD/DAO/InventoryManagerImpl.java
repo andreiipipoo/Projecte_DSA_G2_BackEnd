@@ -31,75 +31,64 @@ public class InventoryManagerImpl implements InventoryManager {
     }
 
 
+    // TODOS LOS INVENTARIOS QUE EXISTEN
     @Override
-    public List<Inventory> getAll() {
-        List<Inventory> inventories = this.session.getAll(Inventory.class);
-        return inventories;
+    public List<Inventory> getInventoryList() {
+        List<Inventory> inventoryList = this.session.getAll(Inventory.class);
+        return inventoryList;
     }
 
-    // FET
+    // YA TIENE EL ITEM EN SU INVENTARIO??
     @Override
-    public boolean alreadyExists(String username, String itemname) {
-        List<Inventory> all = this.getAll();
-        Player user = playerManager.getPlayerByUsername(username);
-        Item item = itemManager.getItemByName(itemname);
+    public boolean repeatItem(String playerName, String itemId) {
+        List<Inventory> inventories = this.getInventoryList();
+        Player player = playerManager.getPlayerByUsername(playerName);
+        Item item = itemManager.getItemById(itemId);
 
-        for (Inventory i : all) {
-            if ((i.getIdPlayer().equals(user.getId())) && (i.getIdItem().equals(item.getId()))) {
+        for (Inventory i : inventories) {
+            if (i.getIdPlayer().equals(player.getId()) && i.getIdItem().equals(item.getId())) {
                 return true;
             }
         }
         return false;
     }
 
-    // NOT OK
+    // AÑADIR UN NUEVO INVENTARIO
     @Override
-    public Inventory addInventory(String username, String itemname) {
-        Player user = (Player) this.session.getByName(Player.class, username);
-        Item item = (Item) this.session.getByName(Item.class, itemname);
-
-        Inventory i = new Inventory(user.getId(), item.getId());
-        this.session.save(i);
-        return i;
+    public Inventory addInventory(String playerId, String itemId) {
+        Player p = (Player) this.session.getById(Player.class, playerId);
+        Item i = (Item) this.session.getById(Item.class, itemId);
+        Inventory ii = new Inventory(p.getId(), i.getId());
+        this.session.save(ii);
+        return ii;
     }
 
-    // OK
+    // Inventario de un jugador
     @Override
-    public List<Item> getUserInventory(String userid) {
-        List<Inventory> inventories = this.getAll();
-        List<Item> userItems = new LinkedList<>();
+    public List<Item> getPlayerInventory(String playerId) {
+        List<Inventory> inventories = this.getInventoryList();
+        List<Item> playerItems = new LinkedList<>();
 
         for (Inventory i : inventories) {
-            if (i.getIdPlayer().equals(userid)) {
+            if (i.getIdPlayer().equals(playerId)) {
                 Item item = (Item) this.session.getById(Item.class, i.getIdItem());
-                userItems.add(item);
+                playerItems.add(item);
             }
         }
-        return userItems;
+        return playerItems;
     }
 
-    // FET HE FET DELETE CATCH!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
+    // Comprar un item/skin para su inventario
     @Override
-    public void makeActive(String userid, String itemid) {
-        List <Inventory> iList = this.getAll();
-        iList.forEach(i -> {
-            if(i.getIdItem().equals(itemid) && i.getIdPlayer().equals(userid)) {
-                //i.setActive(true);
-                this.session.update(i);
-            }
-        });
-    }
-
-    // NOT OK
-    @Override
-    public void buyItem(String username, String itemname) throws IntrospectionException {
-        Player user = (Player) this.session.getByName(Player.class, username);
-        Item item = (Item) this.session.getByName(Item.class, itemname);
-
-        int coinBalance = user.getCroCoins() - item.getPrice();
-        user.setCroCoins(coinBalance);
-        this.session.update(user);
-
-        this.addInventory(username, itemname);
+    public Inventory buyItem(String playerId, String itemId) {
+        Inventory inventory = null;
+        Player u = (Player) this.session.getById(Player.class, playerId);
+        Item i = (Item) this.session.getById(Item.class, itemId);
+        if(u.getCroCoins() >= i.getPrice() && !this.repeatItem(playerId, itemId)){
+            inventory = this.addInventory(u.getId(), itemId);
+            int coins = u.getCroCoins() - i.getPrice();
+            u = PlayerManagerImpl.getInstance().updateCoins(playerId, coins);
+        }
+        return inventory;
     }
 }

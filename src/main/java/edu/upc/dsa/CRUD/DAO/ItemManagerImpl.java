@@ -30,19 +30,27 @@ public class ItemManagerImpl implements ItemManager {
         List<Item> storeList = this.session.getAll(Item.class);
         return storeList;
     }
-    // FET
-    public Item addItem(Item item) {
-        this.session.save(item);
-        logger.info("Item saved: " + item.toString());
-        return item;
+
+    @Override
+    public Item addItem(Item i) {
+        this.session.save(i);
+        return i;
     }
 
-    // FET
     @Override
-    public Item getItemByName(String itemname) {
-        Item item = (Item) this.session.getByName(Item.class, itemname);
-        if (item.getName() == null) return null;
-        logger.info("item by name: " + item.toString());
-        return item;
+    public void deleteItem(String id) {
+       Item i = (Item) this.session.getById(Item.class, id);
+       logger.info("Item to delete: " + i);
+       session.delete(i);
+    }
+
+    @Override
+    public Item getItemById(String id) {
+        Item i = (Item) this.session.getById(Item.class, id);
+        if(i.getName() == null) {
+            return null;
+        }
+        logger.info("Item to get: " + i);
+        return i;
     }
 }

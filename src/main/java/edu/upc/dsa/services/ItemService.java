@@ -28,17 +28,10 @@ public class ItemService {
         this.inventoryManager = InventoryManagerImpl.getInstance();
     }
 
-    @Path("basic")
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String getIt() {
-        return "Got it!";
-    }
 
-
-    // get ALL items from the store --> OK
+    // GET ALL ITEMS FROM STORE
     @GET
-    @ApiOperation(value = "Get all items in store", notes = " ")
+    @ApiOperation(value = "Get all items from the store", notes = " ")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successful", response = Item.class, responseContainer="List"),
     })
@@ -51,77 +44,56 @@ public class ItemService {
         return Response.status(200).entity(entity).build();
     }
 
-    //get ALL items from a user's inventory --> OK
+    //GET ALL ITEMS FROM A PARTICULAR PLAYER
     @GET
-    @ApiOperation(value = "Get a particular User's inventory", notes = " ")
+    @ApiOperation(value = "Get a particular Player's inventory", notes = " ")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successful", response = Item.class),
-            @ApiResponse(code = 404, message = "User not found")
+            @ApiResponse(code = 404, message = "Player not found")
     })
-    @Path("inventoryList/{username}")
+    @Path("inventoryList/{playerId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getInventoryList(@PathParam("username") String username) {
+    public Response getInventoryList(@PathParam("playerId") String playerId) {
 
-        Player user = playerManager.getPlayerByUsername(username);
-        if (user == null) {
+        Player player = playerManager.getPlayerById(playerId);
+        if (player == null) {
             return Response.status(404).build();
         } else {
-            List<Item> inventory = this.inventoryManager.getUserInventory(user.getId());
+            List<Item> inventory = this.inventoryManager.getPlayerInventory(playerId);
             GenericEntity<List<Item>> entity = new GenericEntity<List<Item>>(inventory) {};
             return Response.status(200).entity(entity).build();
         }
     }
 
 
-    // buy item from store --> OK
+    // BUY AN ITEM FROM THE STORE
     @PUT
     @ApiOperation(value = "Buy an Item", notes = " ")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successful"),
             @ApiResponse(code = 402, message = "Not enough coins"),
-            @ApiResponse(code = 404, message = "User not found"),
+            @ApiResponse(code = 404, message = "Player not found"),
             @ApiResponse(code = 405, message = "Item not found"),
             @ApiResponse(code = 409, message = "Item is already in possession")
     })
-    @Path("/buyItem/{itemname}/{username}")
+    @Path("/buyItem/{itemId}/{playerId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response buyItem(@PathParam("itemname") String itemname, @PathParam("username") String username) throws IntrospectionException {
+    public Response buyItem(@PathParam("itemId") String itemId, @PathParam("playerId") String playerId) throws IntrospectionException {
 
-        Player user = playerManager.getPlayerByUsername(username);
-        Item item = itemManager.getItemByName(itemname);
+        Player player = playerManager.getPlayerById(playerId);
+        Item item = itemManager.getItemById(itemId);
 
-        if (user == null) {
+        if (player == null) {
             return Response.status(404).build();
         } else if (item == null) {
             return Response.status(405).build();
-        } else if (user.getCroCoins() < item.getPrice()) {
+        } else if (player.getCroCoins() < item.getPrice()) {
             return Response.status(402).build();
-        } else if (inventoryManager.alreadyExists(username, itemname)){
+        } else if (inventoryManager.repeatItem(playerId, itemId)) {
             return Response.status(409).build();
         } else {
-            this.inventoryManager.buyItem(username,itemname);
+            this.inventoryManager.buyItem(playerId,itemId);
             return Response.status(200).build();
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

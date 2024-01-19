@@ -22,17 +22,15 @@
        }
 
        body {
-    min-height: 100vh;
-    background-color: #0b0c1e;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-    background-position: center;
-    margin: 0;
-    font-family: 'Arial', sans-serif;
-    overflow: hidden; /* Desactiva la barra de desplazamiento */
-}
-
+           min-height: 100vh;
+           background-image: url("images/CroackyLogo.jpeg");
+           background-repeat: no-repeat;
+           background-size: cover;
+           background-attachment: fixed;
+           background-position: center;
+           margin: 0; /* Remove default body margin */
+           font-family: 'Arial', sans-serif; /* Use a common font for better compatibility */
+       }
 
        nav {
            position: fixed;
@@ -111,29 +109,14 @@
        }
 
        #registro {
-    background-color: #32CD32; /* Changed background color to green */
-    color: white;
-    max-width: 500px;
-    margin: 100px 930px; /* Ajusta la propiedad margin según sea necesario */
-    padding: 20px;
-    border-radius: 10px;
-}
-#photo-container {
-    width: 90vw;
-    height: 90vh;
-    background-image: url("images/CroackyLogo.jpeg");
-    background-repeat: no-repeat;
-    background-size: contain; /* Ajustado a 'cover' para llenar el contenedor sin distorsión */
-    background-position: center;
-    position: absolute;
-    top: 90px; /* Agregado margen superior */
-    left: -240px; /* Ajusta la propiedad left según sea necesario para mover a la izquierda */
-    text-align: center;
-    padding: 20px;
-}
-
-
-
+           background-color: #32CD32; /* Changed background color to green */
+           color: white;
+           max-width: 400px;
+           margin: auto;
+           padding: 20px;
+           border-radius: 10px;
+           margin-top: 100px;
+       }
 
        .button {
            background-color: #FFFFFF; /* Set button color to white */
@@ -181,8 +164,6 @@
         </div>
     </div>
 </nav>
-<div id="photo-container"></div>
-
 <div id="registro" class="container text-center">
     <h3>Create an account</h3>
 
@@ -230,5 +211,4 @@
 </div>
 </body>
 </html>
-
 

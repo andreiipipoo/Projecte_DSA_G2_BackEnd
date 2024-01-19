@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface ItemManager {
     public List<Item> getStoreList();
-    public Item addItem(Item item);
-    public Item getItemByName(String itemname);
+    public Item addItem(Item i);
+    public void deleteItem(String id);
+    public Item getItemById(String id);
 }
