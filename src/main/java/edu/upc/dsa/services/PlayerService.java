@@ -35,18 +35,18 @@ public class PlayerService {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response playerSignUp(SignUpCredentials playerCred) {
 
-        Player player = new Player(playerCred.getUsername(), playerCred.getPassword(), playerCred.getTelephone() ,playerCred.getEmail());
-        if (player.getEmail().isEmpty() || player.getUsername().isEmpty() || player.getPassword().isEmpty() || player.getTelephone().isEmpty())
+        Player player = new Player(playerCred.getUsername(), playerCred.getPassword(), playerCred.getTelephone(), playerCred.getEmail());
+        if (player.getUsername().isEmpty() || player.getPassword().isEmpty() || player.getTelephone().isEmpty() || player.getEmail().isEmpty())
             return Response.status(500).build();
 
-        Player namecheck = this.pm.getPlayerByUsername(playerCred.getUsername());
-        Player emailcheck = this.pm.getPlayerByEmail(playerCred.getEmail());
-        if (namecheck != null )
+        Player nameCheck = this.pm.getPlayerByUsername(playerCred.getUsername());
+        Player emailCheck = this.pm.getPlayerByEmail(playerCred.getEmail());
+        if (nameCheck != null )
             return Response.status(405).build();
-        else if (emailcheck != null )
+        else if (emailCheck != null )
             return Response.status(406).build();
         else {
-            this.pm.addPlayer(player.getUsername(), player.getPassword(), player.getTelephone() ,player.getEmail());
+            this.pm.addPlayer(player.getUsername(), player.getPassword(), player.getTelephone(), player.getEmail());
             return Response.status(201).entity(player).build();
         }
     }
@@ -56,14 +56,14 @@ public class PlayerService {
     @ApiOperation(value = "Login Player", notes = "Username and password")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successful", response = Player.class),
-            @ApiResponse(code = 404, message = "User not found"),
+            @ApiResponse(code = 404, message = "Player not found"),
             @ApiResponse(code = 405, message = "Wrong password"),
             @ApiResponse(code = 500, message = "Invalid credentials")
     })
     @Path("/login")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response logInUser(LoginInCredentials logInCred) {
-        Player player = this.pm.getPlayerByUsername(logInCred.getUsername());
+        Player player = pm.getPlayerByUsername(logInCred.getUsername());
         if ((logInCred.getUsername().isEmpty()) || (logInCred.getPassword().isEmpty()))
             return Response.status(500).build();
         else if (player == null)
@@ -76,7 +76,7 @@ public class PlayerService {
         }
     }
 
-    /*
+
     // GET ALL PLAYERS signed up
     @GET
     @ApiOperation(value = "Get all signed up Players", notes = " ")
@@ -90,19 +90,18 @@ public class PlayerService {
         GenericEntity<List<Player>> entity = new GenericEntity<List<Player>>(playerList) {};
         return Response.status(201).entity(entity).build();
     }
-*/
 
     // GET ONE PLAYER in particular
     @GET
     @ApiOperation(value = "Get a particular player", notes = "username")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Successful", response = Player.class),
-            @ApiResponse(code = 404, message = "User not found")
+            @ApiResponse(code = 404, message = "Player not found")
     })
     @Path("/{username}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getUser(@PathParam("username") String username) {
-        Player player = this.pm.getPlayerByUsername(username);
+    public Response getPlayer(@PathParam("username") String username) {
+        Player player = pm.getPlayerByUsername(username);
         if (player == null) {
             return Response.status(404).build();
         } else {
@@ -113,7 +112,7 @@ public class PlayerService {
 
     //DELETE ONE PLAYER
     @DELETE
-    @ApiOperation(value = "Delete a player", notes = "id")
+    @ApiOperation(value = "Delete a player", notes = "Id")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Successful"),
             @ApiResponse(code = 404, message = "Player not found")
@@ -152,11 +151,11 @@ public class PlayerService {
             return Response.status(404).build();
         }
 
-        Player namecheck = this.pm.getPlayerByUsername(playerCredentials.getUsername());
-        Player emailcheck = this.pm.getPlayerByEmail(playerCredentials.getEmail());
-        if ((namecheck != null) && (!namecheck.getUsername().equals(oldUsername)) )
+        Player nameCheck = this.pm.getPlayerByUsername(playerCredentials.getUsername());
+        Player emailCheck = this.pm.getPlayerByEmail(playerCredentials.getEmail());
+        if ((nameCheck != null) && (!nameCheck.getUsername().equals(oldUsername)) )
             return Response.status(405).build();
-        else if ((emailcheck != null) && (!emailcheck.getEmail().equals(playerCredentials.getEmail())))
+        else if ((emailCheck != null) && (!emailCheck.getEmail().equals(playerCredentials.getEmail())))
             return Response.status(406).build();
 
         else {

@@ -14,7 +14,6 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="scripts.js"></script>
     <style>
         * {
            margin: 0;
@@ -181,6 +180,34 @@
     <input id="email" placeholder="croacky@gmail.com">
 
     <button type="button" class="button" onclick="signup()">Register</button>
+    <script>
+        function signup() {
+               var username = $('#username').val();
+               var password = $('#password').val();
+               var telephone = $('#telephone').val();
+               var email = $('#email').val();
+
+               $.ajax({
+                   contentType: "application/json",
+                   type: 'POST',
+                   url: '/dsaApp/player/signup',
+                   data: JSON.stringify({ "username": username, "password": password,"telephone": telephone, "email": email }),
+                   dataType: 'json',
+                   success: function (result) {
+                       alert("Sign up completed. Nice to meet you, " + username);
+                       localStorage.setItem("activeUser", username);
+                       window.location.href = "loginprova.html";
+                   },
+                   error: function (error) {
+                       if (username == "" || password == "" || telephone == "" || email == "")
+                           alert("You left something blank. Please try again!");
+                       else
+                           alert("Username or email already in use. Please try again!");
+                       //window.location.href = "register.html";
+                   }
+               });
+           }
+    </script>
 </div>
 </body>
 </html>

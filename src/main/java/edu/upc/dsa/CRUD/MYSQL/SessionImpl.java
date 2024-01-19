@@ -81,14 +81,13 @@ public class SessionImpl<E> implements Session<E> {
     }
 
     @Override
-    public List<E> findAll(Class theClass) {
+    public List<E> getAll(Class theClass) {
         String selectAllQuery = QueryHelper.createQuerySELECTAll(theClass);
         PreparedStatement pstm = null;
         List<E> result = new LinkedList<E>();
 
         try {
             pstm = conn.prepareStatement(selectAllQuery);
-            System.out.println(selectAllQuery);
             pstm.executeQuery();
             ResultSet rs = pstm.getResultSet();
             ResultSetMetaData rsmd = rs.getMetaData();
@@ -96,8 +95,6 @@ public class SessionImpl<E> implements Session<E> {
             while(rs.next()) {
                 Object entity = theClass.newInstance();
                 for (int i = 1; i<rsmd.getColumnCount() + 1; i++) {
-                    System.out.println(rsmd.getColumnName(i));
-                    System.out.println(rs.getObject(i));
                     ObjectHelper.setter(entity,rsmd.getColumnName(i),rs.getObject(i));
                 }
                 result.add((E) entity);

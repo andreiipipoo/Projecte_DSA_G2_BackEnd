@@ -23,20 +23,13 @@ public class PlayerManagerImpl implements PlayerManager {
     }
 
 
-
-
-
     @Override
     public Player addPlayer(String username, String password, String telephone,String email){
         Player u = new Player(username,password,telephone,email);
-        session.save(u);
         logger.info("Add new Player: " + u);
+        session.save(u);
         return u;
     }
-
-
-
-
 
 
     @Override
@@ -45,21 +38,18 @@ public class PlayerManagerImpl implements PlayerManager {
         if (u.getUsername() == null){
             return null;
         }
-        logger.info("Get player by username: " + username);
+        logger.info("Player by username: " + u.toString());
         return u;
     }
 
 
-
-
-
-
     @Override
     public Player getPlayerByEmail(String email) {
-        List<Player> players = new LinkedList<>();
-        session.findAll(Player.class).forEach(player -> players.add((Player) player));
-        for (Player u: players){
-            if(u.getEmail().equals(email)){return u;}
+        List<Player> playerList = this.getAllPlayers();
+        for (Player u : playerList) {
+            if (u.getEmail().equals(email)) {
+                return u;
+            }
         }
         return null;
     }
@@ -72,10 +62,9 @@ public class PlayerManagerImpl implements PlayerManager {
         if (u.getUsername() == null){
             return null;
         }
-        logger.info("Get player by id");
+        logger.info("Player by id: " + u.toString());
         return u;
     }
-
 
 
     @Override
@@ -86,23 +75,13 @@ public class PlayerManagerImpl implements PlayerManager {
     }
 
 
-
-
-
-
     @Override
     public Player updateCoins(String username, int coins) {
-        Player player = (Player) this.session.getByName(Player.class, username);
-        logger.info("Updating coins" + coins);
+        Player player = this.getPlayerByUsername(username);
         player.setCroCoins(coins);
         this.session.update(player);
         return player;
     }
-
-
-
-
-
 
 
     @Override
@@ -117,9 +96,6 @@ public class PlayerManagerImpl implements PlayerManager {
     }
 
 
-
-
-    /*
     @Override
     public List<Player> getAllPlayers() {
         List<Player> playerList = new LinkedList<>();
@@ -128,9 +104,7 @@ public class PlayerManagerImpl implements PlayerManager {
     }
 
 
-
-
-
+    /*
     @Override
     public List<Player> getCoinRanking() {
         List<Player> playerList = new LinkedList<>();

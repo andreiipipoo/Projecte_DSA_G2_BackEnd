@@ -11,7 +11,7 @@ public interface Session<E> {
     void delete(Object entity);
     Object getByName(Class theClass, String username);
     Object getById(Class theClass, String id);
-    List<E> findAll(Class theClass);
+    List<E> getAll(Class theClass);
     void close();
     void update(Object entity);
 }
