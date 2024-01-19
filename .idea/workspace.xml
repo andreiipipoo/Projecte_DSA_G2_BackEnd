@@ -4,19 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c81be3c7-98a2-43e5-a4e4-4315a77ee2f1" name="Changes" comment="D4-testing sign up and login XD">
+    <list default="true" id="c81be3c7-98a2-43e5-a4e4-4315a77ee2f1" name="Changes" comment="D3- register i login OK!">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/register.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/CRUD/DAO/PlayerManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/CRUD/DAO/PlayerManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/CRUD/DAO/PlayerManagerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/CRUD/DAO/PlayerManagerImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/CRUD/MYSQL/FactorySession.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/CRUD/MYSQL/FactorySession.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/CRUD/MYSQL/Session.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/CRUD/MYSQL/Session.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/CRUD/MYSQL/SessionImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/CRUD/MYSQL/SessionImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/CRUD/util/ObjectHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/CRUD/util/ObjectHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/CRUD/util/QueryHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/CRUD/util/QueryHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/services/PlayerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/services/PlayerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/services/MinimsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/upc/dsa/services/MinimsService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,9 +16,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="HTML File" />
         <option value="Interface" />
         <option value="Class" />
-        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -92,7 +82,7 @@
       <recent name="C:\Users\charl\Desktop\DSA\Iteració_1\src\main\java\edu\upc\dsa\exceptions" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JUnit.ItemManagerTest.addItemsTest">
     <configuration name="ItemManagerTest.addItemsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="rest-example2" />
       <extension name="coverage">
@@ -311,7 +301,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705603582940</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="D3- register i login OK!">
+      <option name="closed" value="true" />
+      <created>1705668982592</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1705668982593</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -327,7 +325,8 @@
     <MESSAGE value="D5-before the presentation" />
     <MESSAGE value="D4-testing sign up and login" />
     <MESSAGE value="D4-testing sign up and login XD" />
-    <option name="LAST_COMMIT_MESSAGE" value="D4-testing sign up and login XD" />
+    <MESSAGE value="D3- register i login OK!" />
+    <option name="LAST_COMMIT_MESSAGE" value="D3- register i login OK!" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
