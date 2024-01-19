@@ -23,7 +23,7 @@
 
        body {
            min-height: 100vh;
-           background-image: url("images/CroackyLogo.jpeg");
+    background-color: #0b0c1e;
            background-repeat: no-repeat;
            background-size: cover;
            background-attachment: fixed;
@@ -111,11 +111,10 @@
        #login {
            background-color: #32CD32; /* Changed background color to green */
            color: white;
-           max-width: 400px;
-           margin: auto;
+           max-width: 500px;
+           margin: 100px 930px; /* Ajusta la propiedad margin según sea necesario */
            padding: 20px;
            border-radius: 10px;
-           margin-top: 100px;
        }
 
        .button {
@@ -149,6 +148,19 @@
            background-color: transparent;
            color: #FFFFFF;
        }
+       #photo-container {
+          width: 90vw;
+          height: 90vh;
+        background-image: url("images/CroackyLogo.jpeg");
+        background-repeat: no-repeat;
+        background-size: contain; /* Ajustado a 'cover' para llenar el contenedor sin distorsión */
+        background-position: center;
+        position: absolute;
+        top: 90px; /* Agregado margen superior */
+        left: -240px; /* Ajusta la propiedad left según sea necesario para mover a la izquierda */
+        text-align: center;
+        padding: 20px;
+        }
     </style>
 </head>
 
@@ -164,6 +176,8 @@
         </div>
     </div>
 </nav>
+<div id="photo-container"></div>
+
 <div id="login" class="container text-center">
     <h3>Login to your account</h3>
 

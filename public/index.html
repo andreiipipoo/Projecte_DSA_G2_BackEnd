@@ -23,13 +23,26 @@
 
         body {
             min-height: 100vh;
+            background-color: #0a0b1d;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #photo-container {
+            width: 100vw;
+            height: 100vh;
             background-image: url("images/CroackyLogo.jpeg");
             background-repeat: no-repeat;
-            background-size: cover;
-            background-attachment: fixed;
+            background-size: contain; /* Ajustado a 'cover' para llenar el contenedor sin distorsión */
             background-position: center;
-            margin: 0; /* Remove default body margin */
-            font-family: 'Arial', sans-serif; /* Use a common font for better compatibility */
+            position: absolute;
+            top: 0;
+            left: 0;
+            text-align: center;
+            padding: 20px;
         }
 
         nav {
@@ -111,6 +124,8 @@
 </head>
 
 <body>
+<div id="photo-container"></div>
+
 <nav>
     <div class="navbar">
         <div class="logo"><a href="index.html">Croacky</a></div>
