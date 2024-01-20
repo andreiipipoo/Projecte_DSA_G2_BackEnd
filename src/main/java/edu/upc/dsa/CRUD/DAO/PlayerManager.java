@@ -9,6 +9,7 @@ public interface PlayerManager {
 
     public Player updatePlayer(String oldUsername, String username, String password, String telephone, String email);
 
+
     public Player updateCoins(String username, int coins);
 
     public Player getPlayerById(String id);
@@ -20,5 +21,7 @@ public interface PlayerManager {
 
     //public List<Player> getCoinRanking();
 
-    public void deletePlayer(String id);
+    public void deletePlayer(String username);
+
+    public List<Player> getInfoPlayers();
 }

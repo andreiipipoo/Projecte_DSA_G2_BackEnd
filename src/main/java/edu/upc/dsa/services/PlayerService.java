@@ -77,19 +77,40 @@ public class PlayerService {
     }
 
 
-    // GET ALL PLAYERS signed up
+
+    //GET THE INFO OF THE PLAYERS ONLINE
     @GET
-    @ApiOperation(value = "Get all signed up Players", notes = " ")
+    @ApiOperation(value = "Get all items from the store", notes = " ")
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Successful", response = Player.class, responseContainer="List"),
+            @ApiResponse(code = 200, message = "Successful", response = Player.class, responseContainer="List"),
     })
-    @Path("/playersList")
+    @Path("/playersInfo")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllPlayers() {
-        List<Player> playerList = this.pm.getAllPlayers();
-        GenericEntity<List<Player>> entity = new GenericEntity<List<Player>>(playerList) {};
-        return Response.status(201).entity(entity).build();
+    public Response getInfoPlayers() {
+        List<Player> playersInfo = this.pm.getInfoPlayers();
+        GenericEntity<List<Player>> entity = new GenericEntity<List<Player>>(playersInfo) {};
+        return Response.status(200).entity(entity).build();
     }
+
+
+
+
+
+    //GET THE INFO OF THE PLAYER
+    @GET
+    @ApiOperation(value = "Get all items from the store", notes = " ")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successful", response = Player.class, responseContainer="List"),
+    })
+    @Path("/playerInfo")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getInfoPlayer() {
+        List<Player> playersInfo = this.pm.getInfoPlayers();
+        GenericEntity<List<Player>> entity = new GenericEntity<List<Player>>(playersInfo) {};
+        return Response.status(200).entity(entity).build();
+    }
+
+
 
     // GET ONE PLAYER in particular
     @GET
@@ -117,15 +138,15 @@ public class PlayerService {
             @ApiResponse(code = 201, message = "Successful"),
             @ApiResponse(code = 404, message = "Player not found")
     })
-    @Path("/delete/{id}")
-    public Response deleteUser(@PathParam("id") String id){
+    @Path("/delete/{username}")
+    public Response deletePlayer(@PathParam("username") String username){
 
-        Player player = pm.getPlayerById(id);
+        Player player = pm.getPlayerByUsername(username);
         if (player == null) {
             return Response.status(404).build();
         }
         else {
-            pm.deletePlayer(id);
+            pm.deletePlayer(username);
             return Response.status(201).entity(player).build();
         }
     }

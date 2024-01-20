@@ -50,15 +50,15 @@ public class ItemService {
             @ApiResponse(code = 200, message = "Successful", response = Item.class),
             @ApiResponse(code = 404, message = "Player not found")
     })
-    @Path("inventoryList/{playerId}")
+    @Path("inventoryList/{username}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getInventoryList(@PathParam("playerId") String playerId) {
+    public Response getInventoryList(@PathParam("username") String username) {
 
-        Player player = playerManager.getPlayerById(playerId);
+        Player player = playerManager.getPlayerByUsername(username);
         if (player == null) {
             return Response.status(404).build();
         } else {
-            List<Item> inventory = this.inventoryManager.getPlayerInventory(playerId);
+            List<Item> inventory = this.inventoryManager.getPlayerInventory(player.getId());
             GenericEntity<List<Item>> entity = new GenericEntity<List<Item>>(inventory) {};
             return Response.status(200).entity(entity).build();
         }

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Where is Santa's beard?</title>
+    <title>Croacky</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="style.css" rel="stylesheet" type="text/css">
@@ -15,10 +15,9 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="ScriptsFile.js"></script>
     <script>
         $(document).ready(function(){
-            var coins = localStorage.getItem("coins");
+            var coins = localStorage.getCoins("croCoins");
             $("#coins").text("Coins: " + coins );
         });
 
@@ -31,7 +30,7 @@
         }
         body{
             min-height: 100vh;
-            background-color: #0b0c1e;
+            background-color: white;
 
 
         }
@@ -167,6 +166,10 @@
     background-color: #32CD32; /* Fondo de color verde */
     color: white; /* Color del texto en blanco para contrastar */
 }
+.dropdown-item:hover {
+    background-color: #78F470; /* Cambia el color de fondo al pasar el mouse sobre el enlace */
+    color: white; /* Cambia el color del texto al pasar el mouse sobre el enlace */
+}
             </style>
 </head>
 <body onload="getItemsList()">
@@ -185,6 +188,7 @@
                         <a class="dropdown-item" href="shop.html">Store</a>
                         <a class="dropdown-item" href="inventory.html">Inventory</a>
                         <a class="dropdown-item" href="profile.html">Profile</a>
+                        <a class="dropdown-item" href="playersOnline.html">Players Online</a>
                         <a class="dropdown-item" href="index.html" onclick="logout()">Change info</a>
                     </div>
                 </li>
@@ -231,10 +235,10 @@ function getItemsList(){
                           "<tr> <td>" + result[i].name +
                           "</td> <td>" + result[i].description +
                           "</td> <td>" + result[i].price +
+                          "</td> <td>" + result[i].type +
                           "</td><td>" +  '<img src ="images/' + result[i].image + '.png" width = "100" height ="100">' + "</td></tr>" +
                           '</td><td>' + '<button type = "button" class = "button" id="' + result[i].id +
                           '" onclick="PurchaseItem(this.id)"  >Purchase</button>' + '</td> </tr>');
-
                   }},
 
               error: function (error) {

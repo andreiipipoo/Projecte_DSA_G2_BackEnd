@@ -1,7 +1,5 @@
 package edu.upc.dsa.CRUD.DAO;
 
-import edu.upc.dsa.CRUD.DAO.PlayerManager;
-import edu.upc.dsa.models.Badges;
 import edu.upc.dsa.models.Player;
 import org.apache.log4j.Logger;
 import java.util.LinkedList;
@@ -22,7 +20,11 @@ public class PlayerManagerImpl implements PlayerManager {
         }
         return instance;
     }
-
+    @Override
+    public List<Player> getInfoPlayers() {
+        List<Player> playersInfo = this.session.getAll(Player.class);
+        return playersInfo;
+    }
 
     @Override
     public Player addPlayer(String username, String password, String telephone,String email){
@@ -69,11 +71,12 @@ public class PlayerManagerImpl implements PlayerManager {
 
 
     @Override
-    public void deletePlayer(String id) {
-        Player player = (Player) this.session.getById(Player.class, id);
+    public void deletePlayer(String username) {
+        Player player = (Player) this.session.getByName(Player.class, username);
         logger.info("Deleting the following player: " + player);
         session.delete(player);
     }
+
 
 
     @Override

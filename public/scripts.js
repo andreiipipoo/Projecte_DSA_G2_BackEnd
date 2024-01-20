@@ -107,6 +107,55 @@ function login(){
               }
           })
       }
+      function getInfoPlayers(){
+                $.ajax({
+                    type: 'GET',
+                    url: "/dsaApp/player/playersInfo",
+                    dataType: 'json',
+                    success:function (result) {
+                        for (let i = 0; i < result.length; i++) {
+                            console.log("i: "+i, result[i]);
+                            $("#itemsTable").append(
+                                "<tr> <td>" + result[i].username +
+                                "</td> <td>" + result[i].password +
+                                "</td> <td>" + result[i].telephone +
+                                "</td> <td>" + result[i].email +
+                                "</td> <td>" + result[i].croCoins +
+
+                                "</td><td>" );
+
+                        }},
+
+                    error: function (error) {
+                        alert("Unable to get player data.");
+                        console.log(error);
+                        window.location.href = "profile.html";
+                    }
+                })
+            }
+            function getInventory() {
+
+                            var username = localStorage.getItem("activeUser");
+
+                            $.ajax({
+                                contentType: "application/json",
+                                type: 'GET',
+                                url: "/dsaApp/item/inventoryList/" + username,
+                                dataType: 'json',
+                                success: function (result) {
+                                    var content = "<table><tr><th>idPlayer</th><th>idItem</th></tr>"
+                                    for (let i = 0; i < result.length; i++) {
+                                        content += '<tr><td>' + '</td><td>' + result[i].idPlayer + '</td><td>' + result[i].idItem + '</td></tr>';
+                                    }
+                                    content += "</table>"
+                                    $('#inventoryTable').append(content);
+                                },
+                                error: function (error) {
+                                    alert("Inventory not available right now. Please try again later!");
+                                    window.location.href = "profile.html";
+                                }
+                            });
+                        }
 
       function PurchaseItem(item) {
               var userName = localStorage.getItem("activeUser");

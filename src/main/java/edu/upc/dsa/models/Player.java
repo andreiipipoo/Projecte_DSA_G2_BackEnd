@@ -73,4 +73,16 @@ public class Player {
     public void setCroCoins(Integer croCoins) {
         this.croCoins = croCoins;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", name='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", telephone='" + telephone + '\'' +
+                ", email='" + email + '\'' +
+                ", coins=" + croCoins +
+                '}';
+    }
 }
