@@ -38,7 +38,6 @@ public class ItemService {
     @Path("/storeList")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getStoreItems() {
-
         List<Item> storeList = this.itemManager.getStoreList();
         GenericEntity<List<Item>> entity = new GenericEntity<List<Item>>(storeList) {};
         return Response.status(200).entity(entity).build();
@@ -76,11 +75,11 @@ public class ItemService {
             @ApiResponse(code = 405, message = "Item not found"),
             @ApiResponse(code = 409, message = "Item is already in possession")
     })
-    @Path("/buyItem/{itemId}/{playerId}")
+    @Path("/buyItem/{itemId}/{userName}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response buyItem(@PathParam("itemId") String itemId, @PathParam("playerId") String playerId) throws IntrospectionException {
+    public Response buyItem(@PathParam("itemId") String itemId, @PathParam("userName") String userName) throws IntrospectionException {
 
-        Player player = playerManager.getPlayerById(playerId);
+        Player player = playerManager.getPlayerByUsername(userName);
         Item item = itemManager.getItemById(itemId);
 
         if (player == null) {
@@ -89,10 +88,10 @@ public class ItemService {
             return Response.status(405).build();
         } else if (player.getCroCoins() < item.getPrice()) {
             return Response.status(402).build();
-        } else if (inventoryManager.repeatItem(playerId, itemId)) {
+        } else if (inventoryManager.repeatItem(userName, itemId)) {
             return Response.status(409).build();
         } else {
-            this.inventoryManager.buyItem(playerId,itemId);
+            this.inventoryManager.buyItem(userName,itemId);
             return Response.status(200).build();
         }
     }

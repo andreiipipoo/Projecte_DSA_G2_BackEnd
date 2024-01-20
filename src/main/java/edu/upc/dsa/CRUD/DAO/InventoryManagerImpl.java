@@ -80,14 +80,16 @@ public class InventoryManagerImpl implements InventoryManager {
 
     // Comprar un item/skin para su inventario
     @Override
-    public Inventory buyItem(String playerId, String itemId) {
+    public Inventory buyItem(String userName, String itemId) {
         Inventory inventory = null;
-        Player u = (Player) this.session.getById(Player.class, playerId);
+        Player u = (Player) this.session.getByName(Player.class, userName);
+        String playerId = u.getId();
+
         Item i = (Item) this.session.getById(Item.class, itemId);
-        if(u.getCroCoins() >= i.getPrice() && !this.repeatItem(playerId, itemId)){
+        if(u.getCroCoins() >= i.getPrice() && !this.repeatItem(userName, itemId)){
             inventory = this.addInventory(u.getId(), itemId);
             int coins = u.getCroCoins() - i.getPrice();
-            u = PlayerManagerImpl.getInstance().updateCoins(playerId, coins);
+            u = PlayerManagerImpl.getInstance().updateCoins(userName, coins);
         }
         return inventory;
     }

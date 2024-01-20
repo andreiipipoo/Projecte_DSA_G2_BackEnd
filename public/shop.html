@@ -31,6 +31,9 @@
         }
         body{
             min-height: 100vh;
+            background-color: #0b0c1e;
+
+
         }
         nav{
             position: fixed;
@@ -39,7 +42,7 @@
             width: 100%;
             height: 100%;
             height: 70px;
-            background: darkred;
+            background: #32CD32;
             box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
             z-index: 99;
         }
@@ -99,7 +102,7 @@
             top: 75px;
             left: -100px;
             line-height: 40px;
-            background: darkred;
+            background: #32CD32;
             box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
             border-radius: 0 0 4px 4px;
             display: none;
@@ -110,7 +113,7 @@
             position: absolute;
             height: 10px;
             width: 10px;
-            background: darkred;
+            background: #32CD32;
             right: 30px;
             top: -10px;
             transform: rotate(45deg);
@@ -145,32 +148,57 @@
                 font-size: 15px;
             }
         }
+        .dropdown-menu {
+    background-color: #32CD32; /* Cambia el color de fondo según tus preferencias */
+}
+.apartment {
+    border: 10px solid #ddd;
+    padding: 150px;
+    margin-top: 100px; /* Ajustado para reducir el margen superior */
+    margin-bottom: 50px; /* Ajustado para reducir el margen inferior */
+    max-width: 800px; /* Ajusta el valor según tus necesidades para hacerlo más ancho */
+    height: 400px; /* Ajusta la altura según tus necesidades */
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #32CD32; /* Fondo de color verde */
+    color: white; /* Color del texto en blanco para contrastar */
+}
             </style>
 </head>
-<body onload="getItemsList();">
+<body onload="getItemsList()">
 <nav>
     <div class="navbar">
-        <div class="logo"><a href="#">Where is Santa's beard?</a></div>
+        <div class="logo"><a href="index.html">Croacky</a></div>
         <div class="nav-links">
             <ul class="links">
-                <li><a href="Main.html"><i class="fa fa-fw fa-home"></i> HOME</a></li>
-                <li>
-                    <a href="#">+</a>
-                    <i class='bx bxs-chevron-down js-arrow arrow '></i>
-                    <ul class="js-sub-menu sub-menu">
-                        <li><a href="UpdateUsername.html" ><i class="fa fa-user-edit"></i> New username</a></li>
-                        <li><a href="UpdatePassword.html" ><i class="fa fa-key"></i> New password</a></li>
-                        <li><a href="inventory.html" ><i class="fas fa-scroll"></i> Inventory</a></li>
-                        <li><a href="ranking.html" ><i class="fas fa-trophy"></i> Leaderboard</a></li>
-                        <li><a href="#" onclick="eradicate()"><i class="fa fa-fw fa-trash-alt"></i> Delete</a></li>
-                        <li><a href="#" onclick="logout()"><i class="fa fa-fw fa-sign-out-alt"></i> Sign out</a></li>
-                    </ul>
+                <li><a href="index.html"><i class="fa fa-fw fa-home"></i> HOME</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-fw fa-sign-in-alt"></i> PROFILE
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="shop.html">Store</a>
+                        <a class="dropdown-item" href="inventory.html">Inventory</a>
+                        <a class="dropdown-item" href="profile.html">Profile</a>
+                        <a class="dropdown-item" href="index.html" onclick="logout()">Change info</a>
+                    </div>
                 </li>
+                <script>
+                      function logout() {
+                          localStorage.setItem("activeUser", null);
+                          alert('Come back soon!');
+                          window.location.href = "index.html";
+                      }
+                  </script>
             </ul>
         </div>
     </div>
 </nav>
-
 
 <div class="container" id="idC">
     <br><br><br><br><br><br><br><br>
@@ -182,6 +210,7 @@
             <th>Name</th>
             <th>Info</th>
             <th>Price</th>
+            <th>Type</th>
             <th>Icon</th>
         </tr>
     </table>
@@ -189,6 +218,51 @@
 
     </table>
 </div>
+<script>
+function getItemsList(){
+          $.ajax({
+              type: 'GET',
+              url: "/dsaApp/item/storeList",
+              dataType: 'json',
+              success:function (result) {
+                  for (let i = 0; i < result.length; i++) {
+                      console.log("i: "+i, result[i]);
+                      $("#itemsTable").append(
+                          "<tr> <td>" + result[i].name +
+                          "</td> <td>" + result[i].description +
+                          "</td> <td>" + result[i].price +
+                          "</td><td>" +  '<img src ="images/' + result[i].image + '.png" width = "100" height ="100">' + "</td></tr>" +
+                          '</td><td>' + '<button type = "button" class = "button" id="' + result[i].id +
+                          '" onclick="PurchaseItem(this.id)"  >Purchase</button>' + '</td> </tr>');
 
+                  }},
+
+              error: function (error) {
+                  alert("Unable to get Shop data.");
+                  console.log(error);
+                  window.location.href = "Main.html";
+              }
+          })
+      }
+</script>
+<script>
+function PurchaseItem(item) {
+              var userName = localStorage.getItem("activeUser");
+              var itemId = item;
+              $.ajax({
+                  type: 'PUT',
+                  url: "dsaApp/item/buyItem/" + itemId + "/" + userName,
+                  dataType: 'json',
+                  success: function (result) {
+                      localStorage.setItem("coins", result.coins);
+                      window.location.href = "shop.html";
+                      alert('Bought succesfully');
+                  },
+                  error: function (error) {
+                      alert('Purchase failed');
+                  },
+              })
+          }
+</script>
 </body>
 </html>
