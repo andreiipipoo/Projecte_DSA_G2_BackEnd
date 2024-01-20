@@ -88,8 +88,9 @@ public class MinimsService {
     @Path("/getMessages")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getMessages() {
+        int random = (int)Math.floor(Math.random()*2);
         List<Message> messageList = this.messageManager.getAllMessages();
         GenericEntity<List<Message>> entity = new GenericEntity<List<Message>>(messageList) {};
-        return Response.status(200).entity(entity).build();
+        return Response.status(200).entity(messageList.get(random)).build();
     }
 }
