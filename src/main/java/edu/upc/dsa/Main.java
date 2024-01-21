@@ -37,7 +37,7 @@ public class Main {
         //beanConfig.setHost("147.83.7.204:80");
         beanConfig.setBasePath("/dsaApp");
         beanConfig.setContact("support@example.com");
-        beanConfig.setDescription("REST API for Group 2 DSA  Project");
+        beanConfig.setDescription("REST API for Group 2 DSA Project");
         beanConfig.setLicenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html");
         beanConfig.setResourcePackage("edu.upc.dsa.services");
         beanConfig.setTermsOfServiceUrl("http://www.example.com/resources/eula");

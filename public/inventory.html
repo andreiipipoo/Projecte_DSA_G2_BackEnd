@@ -181,10 +181,11 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="shop.html">Store</a>
-                        <a class="dropdown-item" href="inventory.html">Inventory</a>
                         <a class="dropdown-item" href="profile.html">Profile</a>
+                        <a class="dropdown-item" href="cambiardatos.html">Update Player</a>
                         <a class="dropdown-item" href="playersOnline.html">Players Online</a>
-                        <a class="dropdown-item" href="index.html" onclick="logout()">Change info</a>
+                        <a class="dropdown-item" href="deletePlayer.html">Delete Player</a>
+                        <a class="dropdown-item" href="index.html" onclick="logout()">Logout</a>
                     </div>
                 </li>
                 <script>
@@ -200,8 +201,7 @@
 </nav>
 <div class="container" id="idC">
     <br><br><br><br><br><br><br><br>
-    <h1 align="center">STORE</h1>
-    <h2 id="coins">Coins:</h2>
+    <h1 align="center">MY INVENTORY</h1>
     <br><br>
     <table id = "table1" style="width:100%">
         <tr>
@@ -217,10 +217,6 @@
     </table>
 </div>
 <script>
-
-
-
-
             function getInventory(){
             var username = localStorage.getItem("activeUser");
           $.ajax({
@@ -231,13 +227,11 @@
                   for (let i = 0; i < result.length; i++) {
                       console.log("i: "+i, result[i]);
                       $("#itemsTable").append(
-                          `<tr>
-                        <td>${result[i].name}</td>
-                        <td>${result[i].description}</td>
-                        <td>${result[i].price}</td>
-                        <td>${result[i].type}</td>
-                        <td><img src="images/${result[i].image}.png" width="100" height="100"></td>
-                    </tr>`
+                    "<tr> <td style='padding-right: 100px;'>" + result[i].name +
+                    "</td> <td style='padding-right: 50px;'>" + result[i].description +
+                    "</td> <td style='padding-right: 80px;'>" + result[i].price +
+                    "</td> <td style='padding-right: 60px;'>" + result[i].type +
+                    "</td> <td>" + '<img src ="images/' + result[i].image + '.png" width = "100" height ="100">' + "</td></tr>"
                 );
 
                   }},

@@ -23,15 +23,8 @@
 
     </script>
     <style>
-          *{
-             margin: 0;
-             padding: 0;
-            box-sizing: border-box;
-        }
         body{
-            min-height: 100vh;
             background-color: white;
-
 
         }
         nav{
@@ -148,29 +141,20 @@
             }
         }
         .dropdown-menu {
-    background-color: #32CD32; /* Cambia el color de fondo según tus preferencias */
-}
-.apartment {
-    border: 10px solid #ddd;
-    padding: 150px;
-    margin-top: 100px; /* Ajustado para reducir el margen superior */
-    margin-bottom: 50px; /* Ajustado para reducir el margen inferior */
-    max-width: 800px; /* Ajusta el valor según tus necesidades para hacerlo más ancho */
-    height: 400px; /* Ajusta la altura según tus necesidades */
-    margin-left: auto;
-    margin-right: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: #32CD32; /* Fondo de color verde */
-    color: white; /* Color del texto en blanco para contrastar */
-}
-.dropdown-item:hover {
-    background-color: #78F470; /* Cambia el color de fondo al pasar el mouse sobre el enlace */
-    color: white; /* Cambia el color del texto al pasar el mouse sobre el enlace */
-}
-            </style>
+        background-color: #32CD32; /* Cambia el color de fondo según tus preferencias */
+        }
+
+        .dropdown-item:hover {
+        background-color: #78F470; /* Cambia el color de fondo al pasar el mouse sobre el enlace */
+        color: white; /* Cambia el color del texto al pasar el mouse sobre el enlace */
+        }
+        #idC {
+      min-height: 400px; /* Puedes ajustar este valor según tus necesidades */
+      background-color: #f0f0f0; /* Puedes cambiar el color de fondo según tus preferencias */
+      padding: 20px;
+      max-width: 1500px; /* Puedes establecer un ancho máximo si lo deseas */
+    }
+</style>
 </head>
 <body onload="getItemsList()">
 <nav>
@@ -185,11 +169,12 @@
                         <i class="fa fa-fw fa-sign-in-alt"></i> PROFILE
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="shop.html">Store</a>
                         <a class="dropdown-item" href="inventory.html">Inventory</a>
                         <a class="dropdown-item" href="profile.html">Profile</a>
                         <a class="dropdown-item" href="playersOnline.html">Players Online</a>
-                        <a class="dropdown-item" href="index.html" onclick="logout()">Change info</a>
+                        <a class="dropdown-item" href="cambiardatos.html">Update Player</a>
+                        <a class="dropdown-item" href="deletePlayer.html">Delete Player</a>
+                        <a class="dropdown-item" href="index.html" onclick="logout()">Logout</a>
                     </div>
                 </li>
                 <script>
@@ -209,7 +194,7 @@
     <h1 align="center">STORE</h1>
     <h2 id="coins">Coins:</h2>
     <br><br>
-    <table id = "table1" style="width:100%">
+    <table id = "table1" style="width:85%">
         <tr>
             <th>Name</th>
             <th>Info</th>
@@ -223,31 +208,33 @@
     </table>
 </div>
 <script>
-function getItemsList(){
-          $.ajax({
-              type: 'GET',
-              url: "/dsaApp/item/storeList",
-              dataType: 'json',
-              success:function (result) {
-                  for (let i = 0; i < result.length; i++) {
-                      console.log("i: "+i, result[i]);
-                      $("#itemsTable").append(
-                          "<tr> <td>" + result[i].name +
-                          "</td> <td>" + result[i].description +
-                          "</td> <td>" + result[i].price +
-                          "</td> <td>" + result[i].type +
-                          "</td><td>" +  '<img src ="images/' + result[i].image + '.png" width = "100" height ="100">' + "</td></tr>" +
-                          '</td><td>' + '<button type = "button" class = "button" id="' + result[i].id +
-                          '" onclick="PurchaseItem(this.id)"  >Purchase</button>' + '</td> </tr>');
-                  }},
+function getItemsList() {
+    $.ajax({
+        type: 'GET',
+        url: "/dsaApp/item/storeList",
+        dataType: 'json',
+        success: function (result) {
+            for (let i = 0; i < result.length; i++) {
+                console.log("i: " + i, result[i]);
+                $("#itemsTable").append(
+                    "<tr> <td style='padding-right: 60px;'>" + result[i].name +
+                    "</td> <td>" + result[i].description +
+                    "</td> <td style='padding-right: 90px;'>" + result[i].price +
+                    "</td> <td style='padding-right: 90px;'>" + result[i].type +
+                    "</td> <td>" + '<img src ="images/' + result[i].image + '.png" width = "100" height ="100">' + "</td>" +
+                    '</td><td>' + '<button type = "button" class = "button" id="' + result[i].id +
+                    '" onclick="PurchaseItem(this.id)"  >Purchase</button>' + '</td> </tr>'
+                );
+            }
+        },
+        error: function (error) {
+            alert("Unable to get Shop data.");
+            console.log(error);
+            window.location.href = "Main.html";
+        }
+    });
+}
 
-              error: function (error) {
-                  alert("Unable to get Shop data.");
-                  console.log(error);
-                  window.location.href = "Main.html";
-              }
-          })
-      }
 </script>
 <script>
 function PurchaseItem(item) {

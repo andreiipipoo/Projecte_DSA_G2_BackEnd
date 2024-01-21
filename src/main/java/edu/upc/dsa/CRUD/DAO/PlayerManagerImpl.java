@@ -99,7 +99,6 @@ public class PlayerManagerImpl implements PlayerManager {
         return player;
     }
 
-
     @Override
     public List<Player> getAllPlayers() {
         List<Player> playerList = new LinkedList<>();

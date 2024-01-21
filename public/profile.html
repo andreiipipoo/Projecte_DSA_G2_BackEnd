@@ -15,6 +15,7 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
     <style>
           *{
              margin: 0;
@@ -23,9 +24,13 @@
         }
         body{
             min-height: 100vh;
-            background-color: white;
-
-
+    background-color: #0b0c1e;
+           background-repeat: no-repeat;
+           background-size: cover;
+           background-attachment: fixed;
+           background-position: center;
+           margin: 0; /* Remove default body margin */
+           font-family: 'Arial', sans-serif; /* Use a common font for better compatibility */
         }
         nav{
             position: fixed;
@@ -143,31 +148,86 @@
         .dropdown-menu {
     background-color: #32CD32; /* Cambia el color de fondo según tus preferencias */
 }
-.apartment {
-    border: 10px solid #ddd;
-    padding: 150px;
-    margin-top: 100px; /* Ajustado para reducir el margen superior */
-    margin-bottom: 50px; /* Ajustado para reducir el margen inferior */
-    max-width: 800px; /* Ajusta el valor según tus necesidades para hacerlo más ancho */
-    height: 400px; /* Ajusta la altura según tus necesidades */
-    margin-left: auto;
-    margin-right: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: #32CD32; /* Fondo de color verde */
-    color: white; /* Color del texto en blanco para contrastar */
+.cambiardatos {
+      border: 2px solid white;
+      border-radius: 10px;
+      padding: 20px;
+      max-width: 500px;
+      margin: auto;
+      margin-top: 100px;
+      background-color: #32CD32;
+      color: white;
+      text-align: center; /* Alineación centrada */
+    }
+#photo-container {
+    width: 700px; /* Reducido el ancho al 70% del viewport width */
+    height: 600px; /* Reducido la altura al 70% del viewport height */
+    background-image: url("images/CroackyLogo.jpeg");
+    background-size: cover; /* Ajustado a 'cover' para llenar el contenedor sin distorsión */
+    position: absolute;
+    top: 90px; /* Agregado margen superior */
+    left: 750px; /* Ajusta la propiedad left según sea necesario para mover a la izquierda */
 }
 .dropdown-item:hover {
     background-color: #78F470; /* Cambia el color de fondo al pasar el mouse sobre el enlace */
     color: white; /* Cambia el color del texto al pasar el mouse sobre el enlace */
 }
+#userInfo {
+    background-color: #32CD32; /* Fondo verde */
+    color: white; /* Texto blanco */
+    text-align: center; /* Texto centrado */
+    padding: 20px; /* Espaciado interno */
+    border-radius: 10px; /* Bordes redondeados */
+    position: absolute; /* Posición absoluta */
+    left: 120px; /* Alineado a la izquierda */
+    top: 50%; /* Centrado verticalmente en la mitad de la pantalla */
+    transform: translateY(-50%); /* Ajuste para centrado vertical */
+    max-width: 500px; /* Máximo ancho del contenedor */
+        font-size: 30px; /* Tamaño de letra más grande, ajusta según sea necesario */
 
+}
+#userInfo h2 {
+    padding-bottom: 10px; /* Espaciado inferior para mejorar la apariencia */
+}
 
     </style>
 </head>
+<script>
+function getInfoPlayer() {
+    var username = localStorage.getItem("activeUser");
+
+    $.get("/dsaApp/player/" + username)
+        .done(function (result) {
+            if (result) {
+                // Asumiendo que tienes un elemento con el id "userInfo" para mostrar la información
+                $("#userInfo").html(
+                    "<h2>Información del Usuario</h2>" +
+                    "<p><strong>CroCoins:</strong> " + result.croCoins + "</p>" +
+                    "<p><strong>Email:</strong> " + result.email + "</p>" +
+                    "<p><strong>ID:</strong> " + result.id + "</p>" +
+                    "<p><strong>Password:</strong> " + result.password + "</p>" +
+                    "<p><strong>Telephone:</strong> " + result.telephone + "</p>" +
+                    "<p><strong>Username:</strong> " + result.username + "</p>"
+                );
+            } else {
+                console.error("Respuesta de servidor inválida:", result);
+                // Podrías mostrar un mensaje de error o manejar la situación de alguna otra manera
+            }
+        })
+        .fail(function (error) {
+            console.error("Error al obtener datos del jugador:", error);
+            alert("Unable to get player data.");
+            window.location.href = "profile.html";
+        });
+}
+
+</script>
 <body onload="getInfoPlayer()">
+<div id="userInfo">
+    <h2>Información del Usuario</h2>
+    <!-- Contenido generado dinámicamente por la función getInfoPlayer -->
+</div><div id="photo-container"></div>
+
 <nav>
     <div class="navbar">
         <div class="logo"><a href="index.html">Croacky</a></div>
@@ -180,10 +240,11 @@
                         <i class="fa fa-fw fa-sign-in-alt"></i> PROFILE
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="shop.html">Store</a>
                         <a class="dropdown-item" href="inventory.html">Inventory</a>
+                        <a class="dropdown-item" href="shop.html">Shop</a>
                         <a class="dropdown-item" href="playersOnline.html">Players Online</a>
-                        <a class="dropdown-item" href="cambiardatos.html">Change info</a>
+                        <a class="dropdown-item" href="cambiardatos.html.html">Update Player</a>
+                        <a class="dropdown-item" href="deletePlayer.html">Delete Player</a>
                         <a class="dropdown-item" href="index.html" onclick="logout()">Logout</a>
                     </div>
                 </li>
@@ -199,55 +260,9 @@
     </div>
 </nav>
 
-<div class="container" id="idC">
-    <br><br><br><br><br><br><br><br>
-    <h1 align="center">STORE</h1>
-    <h2 id="coins">Coins:</h2>
-    <br><br>
-    <table id = "table1" style="width:100%">
-        <tr>
-            <th>croCoins</th>
-            <th>email</th>
-            <th>id</th>
-            <th>password</th>
-            <th>telephone</th>
-            <th>username</th>
-        </tr>
-    </table>
-    <table class="table table-hover" id="itemsTable" >
 
-    </table>
-</div>
 
-<script>
-function getInfoPlayer(){
-              var username = localStorage.getItem("activeUser");
-                $.ajax({
-                    type: 'GET',
-                    url: "/dsaApp/player/" + username,
-                    dataType: 'json',
-                    success:function (result) {
-                        for (let i = 0; i < result.length; i++) {
-                            console.log("i: "+i, result[i]);
-                            $("#itemsTable").append(
-                            "</td> <td>" + result[i].croCoins +
-                            "</td> <td>" + result[i].email +
-                            "</td> <td>" + result[i].id +
-                            "</td> <td>" + result[i].password +
-                            "</td> <td>" + result[i].telephone +
-                            "<tr> <td>" + result[i].username +
-                                "</td><td>" );
 
-                        }},
-
-                    error: function (error) {
-                        alert("Unable to get player data.");
-                        console.log(error);
-                        window.location.href = "profile.html";
-                    }
-                })
-            }
-</script>
 </body>
 
 </html>

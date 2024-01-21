@@ -209,8 +209,10 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="shop.html">Store</a>
+            <a class="dropdown-item" href="profile.html">Profile</a>
+            <a class="dropdown-item" href="cambiardatos.html">Update Player</a>
             <a class="dropdown-item" href="inventory.html">Inventory</a>
-            <a class="dropdown-item" href="cambiardatos.html">Change info</a>
+            <a class="dropdown-item" href="deletePlayer.html">Delete Player</a>
             <a class="dropdown-item" href="index.html" onclick="logout()">Logout</a>
           </div>
         </li>
@@ -230,46 +232,46 @@
   <br><br><br><br><br><br><br><br>
   <h1 align="center">PROFILE</h1>
   <br><br>
-  <table id = "table1" style="width:100%">
+  <table id="table1" style="width:100%">
     <tr>
-      <th>username</th>
-      <th>password</th>
-      <th>telephone</th>
-      <th>email</th>
-      <th>croCoins</th>
+      <th style="padding: 50px;">username</th>
+      <th style="padding: 50px;">password</th>
+      <th style="padding: 50px;">telephone</th>
+      <th style="padding: 50px;">email</th>
+      <th style="padding: 50px;">croCoins</th>
     </tr>
   </table>
-  <table class="table table-hover" id="itemsTable" >
+  <table class="table table-hover" id="itemsTable">
   </table>
 </div>
 
 <script>
-function getInfoPlayers(){
-                $.ajax({
-                    type: 'GET',
-                    url: "/dsaApp/player/playersInfo",
-                    dataType: 'json',
-                    success:function (result) {
-                        for (let i = 0; i < result.length; i++) {
-                            console.log("i: "+i, result[i]);
-                            $("#itemsTable").append(
-                                "<tr> <td>" + result[i].username +
-                                "</td> <td>" + result[i].password +
-                                "</td> <td>" + result[i].telephone +
-                                "</td> <td>" + result[i].email +
-                                "</td> <td>" + result[i].croCoins +
-
-                                "</td><td>" );
-
-                        }},
-
-                    error: function (error) {
-                        alert("Unable to get player data.");
-                        console.log(error);
-                        window.location.href = "profile.html";
-                    }
-                })
+function getInfoPlayers() {
+    $.ajax({
+        type: 'GET',
+        url: "/dsaApp/player/playersInfo",
+        dataType: 'json',
+        success: function (result) {
+            for (let i = 0; i < result.length; i++) {
+                console.log("i: " + i, result[i]);
+                $("#itemsTable").append(
+                    "<tr> <td>" + result[i].username +
+                    "</td> <td style='padding-left: 100px;'>" + result[i].password +
+                    "</td> <td style='padding-left: 60px;'>" + result[i].telephone +
+                    "</td> <td style='padding-left: 30px;'>" + result[i].email +
+                    "</td> <td>" + result[i].croCoins +
+                    "</td></tr>"
+                );
             }
+        },
+        error: function (error) {
+            alert("Unable to get player data.");
+            console.log(error);
+            window.location.href = "profile.html";
+        }
+    });
+}
+
 </script>
 </body>
 
