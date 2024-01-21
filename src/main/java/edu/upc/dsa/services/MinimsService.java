@@ -25,11 +25,15 @@ public class MinimsService {
     private QuestionFromPlayerManager questionManager;
     private IssueManager issueManager;
     private MessageManager messageManager;
+    private BadgesManager badgesManager;
+    private PlayerManager playerManager2;
 
     public MinimsService() {
         this.questionManager = QuestionFromPlayerImpl.getInstance();
         this.issueManager = IssueManagerImpl.getInstance();
         this.messageManager = MessageManagerImpl.getInstance();
+        this.badgesManager = BadgesManagerImpl.getInstance();
+        this.playerManager2 = PlayerManagerImpl.getInstance();
         if(messageManager.MessagesSize()==0){
             this.messageManager.addMessage(new Message("Nuevas skins han sido añadidas en la tienda de Croacky!"));
             this.messageManager.addMessage(new Message("Proximamente se añadiran nuevos niveles!"));
@@ -91,5 +95,41 @@ public class MinimsService {
         List<Message> messageList = this.messageManager.getAllMessages();
         GenericEntity<List<Message>> entity = new GenericEntity<List<Message>>(messageList) {};
         return Response.status(200).entity(entity).build();
+    }
+
+    // MINIMO 2 - INSIGNIA - MARIO
+    @POST
+    @ApiOperation(value = "add badges", notes = "")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Successful", response = Badges.class),
+            @ApiResponse(code = 500, message = "Validation Error")
+
+    })
+
+    @Path("/addBadges")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response addBadges(Badges insignia) {
+        this.badgesManager.addBadges(insignia);
+        return Response.status(201).build();
+    }
+
+    // MINIMO 2 - GET BADGES - MARIO
+    @GET
+    @ApiOperation(value = "get all badges from a player", notes = "")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successful", response = Badges.class, responseContainer="List"),
+            @ApiResponse(code = 404, message = "Player not found")
+    })
+    @Path("badgesList/{username}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getBadges(@PathParam("username") String username) {
+        Player player = playerManager2.getPlayerByUsername(username);
+        if (player == null) {
+            return Response.status(404).build();
+        } else {
+            List<Badges> badges = this.badgesManager.getAllBadges();
+            GenericEntity<List<Badges>> entity = new GenericEntity<List<Badges>>(badges) {};
+            return Response.status(200).entity(entity).build();
+        }
     }
 }

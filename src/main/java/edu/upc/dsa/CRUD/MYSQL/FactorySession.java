@@ -20,7 +20,7 @@ public class FactorySession {
         Connection conn = null;
         try {
             conn =
-                    DriverManager.getConnection("jdbc:mysql://localhost:3306/trappy?" + "user=root&password=mariadbtrappy");
+                    DriverManager.getConnection("jdbc:mysql://localhost:3307/croacky?" + "user=root&password=toni");
 
         } catch (SQLException ex) {
             // handle any errors

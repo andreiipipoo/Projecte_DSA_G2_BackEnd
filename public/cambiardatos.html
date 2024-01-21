@@ -280,7 +280,7 @@
     <div class="logo"><a href="index.html">Croacky</a></div>
     <div class="nav-links">
       <ul class="links">
-        <li><a href="index.html"><i class="fa fa-fw fa-home"></i> HOME</a></li>
+        <li><a href="profile.html"><i class="fa fa-fw fa-home"></i> HOME</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
              aria-haspopup="true" aria-expanded="false">
@@ -296,12 +296,12 @@
           </div>
         </li>
         <script>
-                      function logout() {
-                          localStorage.setItem("activeUser", null);
-                          alert('Come back soon!');
-                          window.location.href = "index.html";
-                      }
-                  </script>
+          function logout() {
+              localStorage.setItem("activeUser", null);
+              alert('Come back soon!');
+              window.location.href = "index.html";
+          }
+        </script>
       </ul>
     </div>
   </div>
@@ -329,54 +329,54 @@
   <button type="button" class="button" onclick="updateUser()">Submit</button>
 </div>
 <script>
-          function updateUser() {
-            var oldUsername = localStorage.getItem("activeUser");
-            var username = $('#user').val();
-            var password = $('#password').val();
-            var telephone = $('#telephone').val();
-            var email = $('#mail').val();
+  function updateUser() {
+    var oldUsername = localStorage.getItem("activeUser");
+    var username = $('#user').val();
+    var password = $('#password').val();
+    var telephone = $('#telephone').val();
+    var email = $('#mail').val();
 
-            $.ajax({
-              contentType: "application/json",
-              type: 'PUT',
-              url: "/dsaApp/player/update/"+oldUsername,
-              data: JSON.stringify({username: username, password: password, telephone: telephone, email: email}),
-              dataType: 'json',
-              success: function (result) {
-              alert("Information updated successfully");
-              localStorage.setItem("activeUser", username);
-              window.location.href = "profile.html";
-              },
-              error : function(error) {
-                if (username == "" || password == "" || telephone == "" || email == "")
-                  alert("You left something blank. Please try again!");
-                else
-                  alert("Username or email already in use. Please try again!");
-                window.location.href = "cambiardatos.html";
-              }
-            });
-          }
-        </script>
-<script>
-      function deleteUser() {
-        var username = localStorage.getItem("activeUser");
-        $.ajax({
-            contentType: "application/json",
-            type: 'DELETE',
-            url: "/dsaApp/user/delete/"+username,
-            dataType: 'json',
-            success: function (result) {
-                alert("User deleted successfully. We are sad to see you go :(");
-                localStorage.setItem("activeUser", null);
-                window.location.href = "index.html";
-            },
-            error : function(error) {
-                alert("User could not be deleted. Please try again later!");
-                window.location.href = "userProfile.html";
-            }
-        });
+    $.ajax({
+      contentType: "application/json",
+      type: 'PUT',
+      url: "/dsaApp/player/update/"+oldUsername,
+      data: JSON.stringify({username: username, password: password, telephone: telephone, email: email}),
+      dataType: 'json',
+      success: function (result) {
+      alert("Information updated successfully");
+      localStorage.setItem("activeUser", username);
+      window.location.href = "profile.html";
+      },
+      error : function(error) {
+        if (username == "" || password == "" || telephone == "" || email == "")
+          alert("You left something blank. Please try again!");
+        else
+          alert("Username or email already in use. Please try again!");
+        window.location.href = "cambiardatos.html";
       }
-    </script>
+    });
+  }
+</script>
+<script>
+  function deleteUser() {
+    var username = localStorage.getItem("activeUser");
+    $.ajax({
+        contentType: "application/json",
+        type: 'DELETE',
+        url: "/dsaApp/player/delete/"+username,
+        dataType: 'json',
+        success: function (result) {
+            alert("Player deleted successfully. We are sad to see you go :(");
+            localStorage.setItem("activeUser", null);
+            window.location.href = "index.html";
+        },
+        error : function(error) {
+            alert("User could not be deleted. Please try again later!");
+            window.location.href = "profile.html";
+        }
+    });
+  }
+</script>
 
 </body>
 

@@ -162,7 +162,7 @@
         <div class="logo"><a href="index.html">Croacky</a></div>
         <div class="nav-links">
             <ul class="links">
-                <li><a href="index.html"><i class="fa fa-fw fa-home"></i> HOME</a></li>
+                <li><a href="profile.html"><i class="fa fa-fw fa-home"></i> HOME</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false">
@@ -191,7 +191,7 @@
 
 <div class="container" id="idC">
     <br><br><br><br><br><br><br><br>
-    <h1 align="center">STORE</h1>
+    <h1 align="center">CROACKY'S SHOP</h1>
     <h2 id="coins">Coins:</h2>
     <br><br>
     <table id = "table1" style="width:85%">
@@ -230,7 +230,7 @@ function getItemsList() {
         error: function (error) {
             alert("Unable to get Shop data.");
             console.log(error);
-            window.location.href = "Main.html";
+            window.location.href = "profile.html";
         }
     });
 }
@@ -247,10 +247,10 @@ function PurchaseItem(item) {
                   success: function (result) {
                       localStorage.setItem("coins", result.coins);
                       window.location.href = "shop.html";
-                      alert('Bought succesfully');
+                      alert('Error buying item');
                   },
                   error: function (error) {
-                      alert('Purchase failed');
+                      alert('Bought succesfully');
                   },
               })
           }

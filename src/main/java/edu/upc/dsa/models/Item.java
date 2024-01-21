@@ -9,20 +9,20 @@ public class Item {
     private String description;
     private String type;
     private int price;
-    private String avatar;
+    private String image;
 
     //Void Constructor
     public Item() {
     }
 
     //Constructor
-    public Item(String name, String description, String type, int price) {
+    public Item(String name, String description, String type, int price, String image) {
         this.id = RandomUtils.getId();
         this.name = name;
         this.description = description;
         this.type = type;
         this.price = price;
-        this.avatar = "images/" + name + ".png";
+        this.image = image;
     }
 
     //Getters and setters
@@ -67,16 +67,17 @@ public class Item {
         this.price = price;
     }
 
-    public String getAvatar() {
-        return avatar;
+    public String getImage() {
+        return image;
     }
 
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
+    public void setImage(String image) {
+        this.image = image;
     }
 
     @Override
     public String toString() {
-        return "Item [id=" + id + ", name=" + name + ", description=" + description + ", type=" + type + ", price=" + price + ", avatar=" + avatar + "]";
+        return "Item [id=" + id + ", name=" + name + ", description=" + description + ", type=" + type + ", price="
+                + price + ", image=" + image + "]";
     }
 }
